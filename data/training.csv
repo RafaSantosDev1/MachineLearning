@@ -1,18 +1,29 @@
-
 text,label
-Adoro programar,positivo
-Python é fantástico,positivo
-Gosto muito de tecnologia,positivo
-Aprender inteligência artificial é interessante,positivo
-Este projeto é divertido,positivo
-O código funciona perfeitamente,positivo
-Estou muito satisfeito com o resultado,positivo
-Desenvolver aplicações é incrível,positivo
-Não gosto de programar,negativo
-Python é muito complicado,negativo
-Odeio este programa,negativo
-Aprender isto é aborrecido,negativo
-Este projeto é frustrante,negativo
-O código está cheio de erros,negativo
-Estou muito insatisfeito,negativo
-Desenvolver aplicações é zzzz,negativo
+I love programming,positive
+Python is fantastic,positive
+I really like technology,positive
+Learning artificial intelligence is interesting,positive
+This project is fun,positive
+The code works perfectly,positive
+I'm very satisfied with the result,positive
+Developing applications is amazing,positive
+I don't like programming,negative
+Python is very complicated,negative
+I hate this program,negative
+Learning this is boring,negative
+This project is frustrating,negative
+The code is full of errors,negative
+I'm very dissatisfied,negative
+Developing applications is zzzz,negative
+I'm exited with football, positive
+I'm excited about Python, positive
+I am excited,positive
+I feel excited,positive
+This is exciting,positive
+I am very happy,positive
+I love this,positive
+I am disappointed,negative
+I feel terrible,negative
+This is boring,negative
+I hate this,negative
+I feel sad,negative

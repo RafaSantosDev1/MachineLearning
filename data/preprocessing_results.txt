@@ -1,41 +1,17 @@
 Vocabulary:
-['aborrecido' 'adoro' 'aplicações' 'aprender' 'artificial' 'cheio' 'com'
- 'complicado' 'código' 'de' 'desenvolver' 'divertido' 'erros' 'este'
- 'estou' 'está' 'fantástico' 'frustrante' 'funciona' 'gosto' 'incrível'
- 'insatisfeito' 'inteligência' 'interessante' 'isto' 'muito' 'não' 'odeio'
- 'perfeitamente' 'programa' 'programar' 'projeto' 'python' 'resultado'
- 'satisfeito' 'tecnologia' 'zzzz']
+['about' 'am' 'amazing' 'applications' 'artificial' 'boring' 'code'
+ 'complicated' 'developing' 'disappointed' 'dissatisfied' 'don' 'errors'
+ 'excited' 'exciting' 'exited' 'fantastic' 'feel' 'football' 'frustrating'
+ 'full' 'fun' 'happy' 'hate' 'intelligence' 'interesting' 'is' 'learning'
+ 'like' 'love' 'of' 'perfectly' 'program' 'programming' 'project' 'python'
+ 'really' 'result' 'sad' 'satisfied' 'technology' 'terrible' 'the' 'this'
+ 'very' 'with' 'works' 'zzzz']
 
 Numerical matrix:
-[[0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0
-  0]
- [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0
-  0]
- [0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1
-  0]
- [0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0
-  0]
- [0 0 0 0 0 0 0 0 0 0 0 1 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0
-  0]
- [0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0
-  0]
- [0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 1 0
-  0]
- [0 0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-  0]
- [0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 0 0 0 1 0 0 0 0 0
-  0]
- [0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 0 0 0
-  0]
- [0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 0 0 0 0 0 0
-  0]
- [1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0
-  0]
- [0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0
-  0]
- [0 0 0 0 0 1 0 0 1 1 0 0 1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-  0]
- [0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 0 0 0 1 0 0 0 0 0 0 0 0 0 0
-  0]
- [0 0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-  1]]
+[[0 0 0 ... 0 0 0]
+ [0 0 0 ... 0 0 0]
+ [0 0 0 ... 0 0 0]
+ ...
+ [0 0 0 ... 0 0 0]
+ [0 0 0 ... 0 0 0]
+ [0 0 0 ... 0 0 0]]

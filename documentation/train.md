@@ -14,3 +14,6 @@ Odeio este programa                     	negativo
 Este projeto é frustrante               	negativo
 
 O modelo vai aprender padrões a partir destes exemplos.
+
+## O train usa o MultinomialNB para com base no training.csv que treina o modelo, o test.csv para testar se o modelo gera as os positivo/negativo esperado.
+

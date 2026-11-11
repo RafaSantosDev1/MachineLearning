@@ -1,0 +1,36 @@
+================================
+          RafiAI
+================================
+
+Training model...
+Model trained successfully!
+
+Testing results:
+Text: I love software development
+Prediction: positive
+Expected: positive
+----------------------------
+Text: Technology is wonderful
+Prediction: positive
+Expected: positive
+----------------------------
+Text: This exercise is terrible
+Prediction: negative
+Expected: negative
+----------------------------
+Text: I don't like this result
+Prediction: negative
+Expected: negative
+----------------------------
+Text: I'm excited about Python
+Prediction: negative                    diferent, maybe because the training model have a low number of examples
+Expected: positive
+----------------------------
+Text: This application is horrible
+Prediction: negative
+Expected: negative
+----------------------------
+Text: I don't like it
+Prediction: negative
+Expected: negative
+----------------------------
