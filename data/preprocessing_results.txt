@@ -1,11 +1,23 @@
 Vocabulary:
-['about' 'am' 'amazing' 'applications' 'artificial' 'boring' 'code'
- 'complicated' 'developing' 'disappointed' 'dissatisfied' 'don' 'errors'
- 'excited' 'exciting' 'exited' 'fantastic' 'feel' 'football' 'frustrating'
- 'full' 'fun' 'happy' 'hate' 'intelligence' 'interesting' 'is' 'learning'
- 'like' 'love' 'of' 'perfectly' 'program' 'programming' 'project' 'python'
- 'really' 'result' 'sad' 'satisfied' 'technology' 'terrible' 'the' 'this'
- 'very' 'with' 'works' 'zzzz']
+['0' '1' 'a' 'about' 'absolutely' 'am' 'amazing' 'an' 'angry' 'annoyed'
+ 'applications' 'appreciate' 'are' 'artificial' 'awful' 'bad' 'be'
+ 'better' 'bom' 'boring' 'brilliant' 'by' 'cannot' 'code' 'complete'
+ 'complicated' 'couldn' 'day' 'decision' 'delighted' 'developing'
+ 'disappointed' 'disappointing' 'disaster' 'dissatisfied' 'do' 'don'
+ 'enjoy' 'enjoyed' 'errors' 'everything' 'excellent' 'excited' 'exciting'
+ 'experience' 'extremely' 'fantastic' 'feel' 'football' 'for' 'forward'
+ 'frustrated' 'frustrating' 'full' 'fun' 'going' 'good' 'grateful' 'great'
+ 'had' 'happier' 'happy' 'hate' 'have' 'having' 'help' 'hopeless'
+ 'horrible' 'i' 'idea' 'in' 'intelligence' 'interest' 'interesting' 'is'
+ 'isto' 'it' 'learning' 'like' 'looking' 'love' 'm' 'makes' 'mau' 'me'
+ 'miserable' 'muito' 'my' 'myself' 'negative' 'new' 'no' 'not' 'nothing'
+ 'of' 'opportunity' 'perfectly' 'pleased' 'positive' 'problem' 'program'
+ 'programming' 'progress' 'project' 'proud' 'python' 'really' 'regret'
+ 'result' 'results' 'right' 'sad' 'satisfied' 'situation' 'smile' 'stand'
+ 'struggling' 't' 'technology' 'terrible' 'that' 'the' 'things' 'this'
+ 'thrilled' 'time' 'tired' 'to' 'today' 'tomorrow' 'unhappy' 'very' 'was'
+ 'well' 'went' 'wish' 'with' 'wonderful' 'works' 'worried' 'wrong' 'yes'
+ 'your' 'zzzz' 'é']
 
 Numerical matrix:
 [[0 0 0 ... 0 0 0]

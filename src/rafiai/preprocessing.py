@@ -4,8 +4,7 @@ from pathlib import Path
 
 
 def create_vectorizer():
-    return CountVectorizer()
-
+    return CountVectorizer(token_pattern=r"(?u)\b\w+\b")
 
 def fit_transform_texts(vectorizer, texts):
     return vectorizer.fit_transform(texts)

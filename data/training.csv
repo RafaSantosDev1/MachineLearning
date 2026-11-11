@@ -1,4 +1,10 @@
 text,label
+positive,positive
+negative,negative
+Positive,positive
+Negative,negative
+0,negative
+1,positive
 I love programming,positive
 Python is fantastic,positive
 I really like technology,positive
@@ -15,8 +21,8 @@ This project is frustrating,negative
 The code is full of errors,negative
 I'm very dissatisfied,negative
 Developing applications is zzzz,negative
-I'm exited with football, positive
-I'm excited about Python, positive
+I'm excited about football,positive
+I'm excited about Python,positive
 I am excited,positive
 I feel excited,positive
 This is exciting,positive
@@ -27,3 +33,64 @@ I feel terrible,negative
 This is boring,negative
 I hate this,negative
 I feel sad,negative
+good,positive
+very good,positive
+this is good,positive
+bad,negative
+very bad,negative
+this is bad,negative
+bom,positive
+muito bom,positive
+isto é bom,positive
+mau,negative
+muito mau,negative
+isto é mau,negative
+I am delighted,positive
+I am thrilled,positive
+I am pleased with my progress,positive
+I feel wonderful,positive
+I feel amazing today,positive
+I am proud of myself,positive
+I had a great experience,positive
+Everything is going well,positive
+This is absolutely brilliant,positive
+I appreciate your help,positive
+I enjoy learning new things,positive
+I had a wonderful day,positive
+That was an excellent idea,positive
+I am grateful for this opportunity,positive
+I am looking forward to tomorrow,positive
+This makes me smile,positive
+I couldn't be happier,positive
+I am having a great time,positive
+The results are excellent,positive
+I really enjoyed this experience,positive
+I am miserable,negative
+I am frustrated with everything,negative
+I feel awful today,negative
+I am extremely unhappy,negative
+This was a terrible experience,negative
+Nothing is going right,negative
+I regret this decision,negative
+I am tired of this situation,negative
+This is absolutely disappointing,negative
+I cannot stand this,negative
+I am worried about the result,negative
+I feel hopeless,negative
+Everything went wrong,negative
+This is a complete disaster,negative
+I am annoyed by this,negative
+I had a horrible day,negative
+I am struggling with this problem,negative
+This makes me angry,negative
+I wish this was better,negative
+I am not satisfied with this,negative
+I do not enjoy this,negative
+I do not like this,negative
+This is not good,negative
+I am not happy with the result,negative
+I have no interest in this,negative
+Yes I love it,positive
+Yes that is wonderful,positive
+No I hate it,negative
+No this is terrible,negative
