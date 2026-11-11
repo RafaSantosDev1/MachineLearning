@@ -1,8 +1,9 @@
 
 from rafiai.data_loader import load_dataset
-from rafiai.preprocessing import run_preprocessing, transform_texts
+from rafiai.preprocessing import run_preprocessing
 from rafiai.train import create_model, train_model
 from rafiai.predict import predict_sentiment
+from rafiai.model_storage import model_exists, save_model, load_model
 
 
 def main():
@@ -10,39 +11,31 @@ def main():
     print("          RafiAI")
     print("================================")
 
-    training_data = load_dataset("training.csv")
-    testing_data = load_dataset("testing.csv")
+    if model_exists():
+        print("\nLoading saved model...")
 
-    training_texts = training_data["text"].tolist()
-    training_labels = training_data["label"].tolist()
+        saved_data = load_model()
+        model = saved_data["model"]
+        vectorizer = saved_data["vectorizer"]
 
-    vectorizer, training_matrix = run_preprocessing(training_texts)
+        print("Model loaded successfully!")
 
-    print("\nTraining model...")
+    else:
+        print("\nTraining new model...")
 
-    model = create_model()
-    model = train_model(model, training_matrix, training_labels)
+        training_data = load_dataset("training.csv")
 
-    print("Model trained successfully!")
+        training_texts = training_data["text"].tolist()
+        training_labels = training_data["label"].tolist()
 
-    testing_texts = testing_data["text"].tolist()
-    testing_labels = testing_data["label"].tolist()
+        vectorizer, training_matrix = run_preprocessing(training_texts)
 
-    testing_matrix = transform_texts(vectorizer, testing_texts)
+        model = create_model()
+        model = train_model(model, training_matrix, training_labels)
 
-    predictions = model.predict(testing_matrix)
+        save_model(model, vectorizer)
 
-    print("\nTesting results:")
-
-    for text, prediction, expected in zip(
-        testing_texts,
-        predictions,
-        testing_labels
-    ):
-        print(f"Text: {text}")
-        print(f"Prediction: {prediction}")
-        print(f"Expected: {expected}")
-        print("----------------------------")
+        print("Model trained and saved successfully!")
 
     print("\n================================")
     print("       RafiAI - Prediction")
