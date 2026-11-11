@@ -1,6 +1,10 @@
 
 from rafiai.data_loader import load_dataset
-from rafiai.preprocessing import run_preprocessing
+from rafiai.preprocessing import (
+    run_preprocessing,
+    transform_texts
+)
+from rafiai.train import create_model, train_model
 
 
 def main():
@@ -8,25 +12,53 @@ def main():
     print("          RafiAI")
     print("================================")
 
-    print("\nLoading datasets...")
-
+    # Load datasets
     training_data = load_dataset("training.csv")
     testing_data = load_dataset("testing.csv")
 
-    print("\nTraining dataset:")
-    print(f"Number of examples: {len(training_data)}")
+    # Extract training data
+    training_texts = training_data["text"].tolist()
+    training_labels = training_data["label"].tolist()
 
-    print("\nTesting dataset:")
-    print(f"Number of examples: {len(testing_data)}")
+    # Preprocess training data
+    vectorizer, training_matrix = run_preprocessing(training_texts)
 
-    print("\nTraining preprocessing...")
+    # Create and train model
+    print("\nTraining model...")
 
-    texts = training_data["text"].tolist()
+    model = create_model()
 
-    vectorizer, matrix = run_preprocessing(texts)
-    print("\n vectors creater in data/preprocessing_results.txt")
+    model = train_model(
+        model,
+        training_matrix,
+        training_labels
+    )
 
-    print("\nPreprocessing completed successfully! ")
+    print("Model trained successfully!")
+
+    # Preprocess testing data
+    testing_texts = testing_data["text"].tolist()
+    testing_labels = testing_data["label"].tolist()
+
+    testing_matrix = transform_texts(
+        vectorizer,
+        testing_texts
+    )
+
+    # Predict testing data
+    predictions = model.predict(testing_matrix)
+
+    print("\nTesting results:")
+
+    for text, prediction, expected in zip(
+        testing_texts,
+        predictions,
+        testing_labels
+    ):
+        print(f"Text: {text}")
+        print(f"Prediction: {prediction}")
+        print(f"Expected: {expected}")
+        print("----------------------------")
 
 
 if __name__ == "__main__":
