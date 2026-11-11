@@ -1,7 +1,9 @@
 
 import re
 from pathlib import Path
-from sklearn.feature_extraction.text import CountVectorizer
+
+import numpy as np
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 
 def clean_text(text):
@@ -16,23 +18,49 @@ def clean_text(text):
     return text.strip()
 
 
+def clean_texts(texts):
+    """
+    Cleans a list of texts.
+    """
+
+    return [clean_text(text) for text in texts]
+
 def create_vectorizer():
-    return CountVectorizer(token_pattern=r"(?u)\b\w+\b")
+    """
+    Creates the TF-IDF vectorizer using unigrams and bigrams.
+    """
+
+    return TfidfVectorizer(
+        token_pattern=r"(?u)\b\w+\b",
+        ngram_range=(1, 2)
+    )
 
 
 def fit_transform_texts(vectorizer, texts):
-    cleaned_texts = [clean_text(text) for text in texts]
+    """
+    Learns the vocabulary and calculates TF-IDF values.
+    """
+
+    cleaned_texts = clean_texts(texts)
 
     return vectorizer.fit_transform(cleaned_texts)
 
 
 def transform_texts(vectorizer, texts):
-    cleaned_texts = [clean_text(text) for text in texts]
+    """
+    Transforms new texts using the existing vocabulary.
+    """
+
+    cleaned_texts = clean_texts(texts)
 
     return vectorizer.transform(cleaned_texts)
 
 
 def run_preprocessing(texts):
+    """
+    Executes the preprocessing pipeline and saves the results.
+    """
+
     vectorizer = create_vectorizer()
     matrix = fit_transform_texts(vectorizer, texts)
 
@@ -45,7 +73,14 @@ def run_preprocessing(texts):
         file.write("Vocabulary:\n")
         file.write(str(vectorizer.get_feature_names_out()))
 
-        file.write("\n\nNumerical matrix:\n")
-        file.write(str(matrix.toarray()))
+        file.write("\n\nTF-IDF matrix:\n")
+        file.write(
+            np.array2string(
+                matrix.toarray(),
+                threshold=np.inf,
+                precision=3,
+                suppress_small=False
+            )
+        )
 
     return vectorizer, matrix
