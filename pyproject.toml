@@ -1,0 +1,17 @@
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rafiai"
+version = "0.1.0"
+description = "Local artificial intelligence learning project"
+dependencies = [
+    "numpy",
+    "pandas",
+    "scikit-learn"
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
