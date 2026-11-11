@@ -53,3 +53,12 @@ O conceito chama-se N-grams e é bastante utilizado em Natural Language Processi
 Precision: das previsões positivas, quantas estavam corretas?
 Recall: dos exemplos realmente positivos, quantos conseguimos encontrar?
 F1-score: equilíbrio entre Precision e Recall.
+
+
+## metricas iniciais caltuladas:
+
+Métrica	    Resultado	Interpretação
+Accuracy	68,17%	    Acerta aproximadamente 68 em cada 100 exemplos.
+Precision	69,99%	    As previsões têm uma precisão média de cerca de 70%.
+Recall	    58,03%	    Identifica aproximadamente 58% dos exemplos de cada classe.
+F1-score	55,53%	    O equilíbrio entre Precision e Recall ainda é relativamente baixo.

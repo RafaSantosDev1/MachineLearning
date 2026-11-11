@@ -6,7 +6,7 @@ from sklearn.metrics import (
     classification_report,
     confusion_matrix
 )
-from sklearn.model_selection import StratifiedKFold, cross_val_score
+from sklearn.model_selection import StratifiedKFold, cross_validate
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import FunctionTransformer
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -56,7 +56,8 @@ def evaluate_model(model, testing_matrix, testing_labels):
 
 def cross_validate_model(texts, labels):
     """
-    Evaluates the model using Stratified K-Fold Cross-Validation.
+    Evaluates the model using Stratified K-Fold Cross-Validation
+    and multiple evaluation metrics.
     """
 
     class_counts = Counter(labels)
@@ -70,7 +71,10 @@ def cross_validate_model(texts, labels):
 
     pipeline = Pipeline([
         ("cleaning", FunctionTransformer(clean_texts, validate=False)),
-        ("tfidf", TfidfVectorizer(token_pattern=r"(?u)\b\w+\b", ngram_range=(1, 2))),
+        ("tfidf", TfidfVectorizer(
+            token_pattern=r"(?u)\b\w+\b",
+            ngram_range=(1, 2)
+        )),
         ("classifier", MultinomialNB())
     ])
 
@@ -80,23 +84,44 @@ def cross_validate_model(texts, labels):
         random_state=42
     )
 
-    scores = cross_val_score(
+    scoring = {
+        "accuracy": "accuracy",
+        "precision": "precision_macro",
+        "recall": "recall_macro",
+        "f1": "f1_macro"
+    }
+
+    results = cross_validate(
         pipeline,
         texts,
         labels,
         cv=cross_validation,
-        scoring="accuracy"
+        scoring=scoring
     )
 
     print("\n================================")
     print("   RafiAI - Cross-Validation")
     print("================================")
 
-    for index, score in enumerate(scores):
-        print(f"Fold {index + 1}: {score:.2%}")
+    metrics = {
+        "Accuracy": "test_accuracy",
+        "Precision": "test_precision",
+        "Recall": "test_recall",
+        "F1-score": "test_f1"
+    }
 
-    print(f"\nAverage Accuracy: {scores.mean():.2%}")
-    print(f"Standard Deviation: {scores.std():.2%}")
+    for metric_name, result_key in metrics.items():
+
+        scores = results[result_key]
+
+        print(f"\n{metric_name}:")
+
+        for index, score in enumerate(scores, start=1):
+            print(f"Fold {index}: {score:.2%}")
+
+        print(f"Average: {scores.mean():.2%}")
+        print(f"Standard Deviation: {scores.std():.2%}")
+
 
 def evaluate_training_performance(model, training_matrix, training_labels):
     """
