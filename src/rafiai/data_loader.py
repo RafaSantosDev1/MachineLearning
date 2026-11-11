@@ -30,4 +30,7 @@ def load_dataset(file_name):
     if dataset[["text", "label"]].isnull().any().any():
         raise ValueError("The dataset contains missing values.")
 
+    dataset["text"] = dataset["text"].str.strip()
+    dataset["label"] = dataset["label"].str.strip()
+
     return dataset

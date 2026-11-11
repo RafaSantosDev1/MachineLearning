@@ -1,17 +1,35 @@
 
-from sklearn.feature_extraction.text import CountVectorizer
+import re
 from pathlib import Path
+from sklearn.feature_extraction.text import CountVectorizer
+
+
+def clean_text(text):
+    """
+    Cleans and normalizes a text.
+    """
+
+    text = text.lower()
+    text = re.sub(r"[^\w\s']", "", text)
+    text = re.sub(r"\s+", " ", text)
+
+    return text.strip()
 
 
 def create_vectorizer():
     return CountVectorizer(token_pattern=r"(?u)\b\w+\b")
 
+
 def fit_transform_texts(vectorizer, texts):
-    return vectorizer.fit_transform(texts)
+    cleaned_texts = [clean_text(text) for text in texts]
+
+    return vectorizer.fit_transform(cleaned_texts)
 
 
 def transform_texts(vectorizer, texts):
-    return vectorizer.transform(texts)
+    cleaned_texts = [clean_text(text) for text in texts]
+
+    return vectorizer.transform(cleaned_texts)
 
 
 def run_preprocessing(texts):
