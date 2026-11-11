@@ -1,0 +1,1 @@
+import Pandas: O Pandas permite trabalhar com dados organizados em tabelas, como acontece no Excel.

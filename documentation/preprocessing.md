@@ -19,3 +19,9 @@ Adoro Java	    1	 1	    0	   0
 Python olas	    0	 0      1      1
 
 Assim verifica se cada palavra existe em cada uma das frases.
+
+Training dataset (palavras):
+Number of examples: 16
+
+Testing dataset (palavras):
+Number of examples: 6
