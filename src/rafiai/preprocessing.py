@@ -6,16 +6,34 @@ import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 
+
 def clean_text(text):
     """
-    Cleans and normalizes a text.
+    Cleans and normalizes a text and identifies negations.
     """
 
     text = text.lower()
+
+    # Normalize common negation expressions
+    text = re.sub(r"\bdon't\b", "do not", text)
+    text = re.sub(r"\bdoesn't\b", "does not", text)
+    text = re.sub(r"\bdidn't\b", "did not", text)
+    text = re.sub(r"\bcan't\b", "cannot", text)
+    text = re.sub(r"\bwon't\b", "will not", text)
+    text = re.sub(r"\bnever\b", "not", text)
+
+    # Mark the word following a negation
+    text = re.sub(
+        r"\bnot\s+(\w+)",
+        r"NOT_\1",
+        text
+    )
+
     text = re.sub(r"[^\w\s']", "", text)
     text = re.sub(r"\s+", " ", text)
 
     return text.strip()
+
 
 
 def clean_texts(texts):
@@ -25,12 +43,14 @@ def clean_texts(texts):
 
     return [clean_text(text) for text in texts]
 
+
 def create_vectorizer():
     """
     Creates the TF-IDF vectorizer using unigrams and bigrams.
     """
 
     return TfidfVectorizer(
+        lowercase=False,
         token_pattern=r"(?u)\b\w+\b",
         ngram_range=(1, 2)
     )

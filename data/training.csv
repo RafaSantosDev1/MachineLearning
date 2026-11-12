@@ -260,3 +260,143 @@ text,label
 "I feel discouraged","negative"
 "I am fed up with this situation","negative"
 "The software is unreliable","negative"
+"I never liked Python","negative"
+"I never enjoyed programming","negative"
+"I do not enjoy coding","negative"
+"I don't like Java","negative"
+"I don't enjoy studying","negative"
+"I cannot recommend this product","negative"
+"I am not satisfied with the result","negative"
+"I am not happy with this decision","negative"
+"I do not appreciate this behavior","negative"
+"I never want to do this again","negative"
+"I don't feel comfortable with this","negative"
+"I cannot stand this situation","negative"
+"I am not interested in this subject","negative"
+"I don't think this is a good idea","negative"
+"I have never enjoyed working here","negative"
+"I don't hate programming","positive"
+"I do not dislike Python","positive"
+"I am not unhappy with the results","positive"
+"I cannot complain about my experience","positive"
+"I have no problems with this","positive"
+"I don't mind studying programming","positive"
+"I never felt better","positive"
+"I am not disappointed with the outcome","positive"
+"I don't regret learning Python","positive"
+"I would not change anything","positive"
+"I do not have anything negative to say","positive"
+"I am not against this idea","positive"
+"I don't think this is a bad product","positive"
+"I have nothing to complain about","positive"
+"I cannot say anything bad about this","positive"
+"I absolutely love programming","positive"
+"Learning Python is amazing","positive"
+"I enjoy solving difficult problems","positive"
+"This project makes me happy","positive"
+"I am excited about my future","positive"
+"Programming is incredibly rewarding","positive"
+"I had a wonderful experience","positive"
+"Everything is working perfectly","positive"
+"I am proud of my achievements","positive"
+"This is exactly what I wanted","positive"
+"I absolutely hate programming","negative"
+"Learning Python is frustrating","negative"
+"I dislike solving these problems","negative"
+"This project makes me unhappy","negative"
+"I am disappointed with my progress","negative"
+"Programming is extremely difficult","negative"
+"I had a terrible experience","negative"
+"Everything is going wrong","negative"
+"I regret making this decision","negative"
+"This is not what I expected","negative"
+"I absolutely love learning new things","positive"
+"This application works perfectly","positive"
+"I had an amazing day today","positive"
+"Working with Python is enjoyable","positive"
+"I am very pleased with the results","positive"
+"This experience exceeded my expectations","positive"
+"I feel confident about my skills","positive"
+"The new update is fantastic","positive"
+"I really appreciate your help","positive"
+"Everything went better than expected","positive"
+"I am extremely satisfied with this service","positive"
+"This is one of my favorite projects","positive"
+"I enjoy every moment of this experience","positive"
+"The solution works exactly as intended","positive"
+"I am delighted with my progress","positive"
+"Learning new technologies is exciting","positive"
+"This product is worth every penny","positive"
+"I had a great time with my friends","positive"
+"The performance is excellent","positive"
+"I am glad I made this decision","positive"
+"I have no regrets about this purchase","positive"
+"I could not be happier with the result","positive"
+"Nothing about this experience disappointed me","positive"
+"I don't have any complaints","positive"
+"This was definitely a good decision","positive"
+"I absolutely hate waiting for updates","negative"
+"This application crashes all the time","negative"
+"I had a horrible day today","negative"
+"Working with this software is frustrating","negative"
+"I am very disappointed with the results","negative"
+"This experience was a complete disaster","negative"
+"I feel terrible about my performance","negative"
+"The latest update is awful","negative"
+"I regret buying this product","negative"
+"Everything went completely wrong","negative"
+"I am extremely dissatisfied with this service","negative"
+"This project has been a nightmare","negative"
+"I dislike every part of this experience","negative"
+"The solution does not work correctly","negative"
+"I am unhappy with my progress","negative"
+"Learning this technology is frustrating","negative"
+"This product is a waste of money","negative"
+"I had a terrible time with my colleagues","negative"
+"The performance is extremely poor","negative"
+"I wish I had made a different decision","negative"
+"I cannot find anything good about this experience","negative"
+"I have nothing positive to say about this product","negative"
+"I don't feel satisfied with the outcome","negative"
+"This was definitely a bad decision","negative"
+"I never want to experience this again","negative"
+"This product does not meet my expectations",negative
+"I do not recommend this service",negative
+"This application does not work properly",negative
+"I cannot recommend this product",negative
+"This update did not solve the problem",negative
+"I will not use this application again",negative
+"This software is not reliable",negative
+"I do not enjoy using this tool",negative
+"The program does not respond correctly",negative
+"This website is not easy to navigate",negative
+"I am not satisfied with the results",negative
+"This application is not useful",negative
+"The new version did not improve anything",negative
+"I cannot trust this software",negative
+"This service does not provide good support",negative
+"The system is not working as expected",negative
+"I do not like the new interface",negative
+"This product is not worth the money",negative
+"The installation did not complete successfully",negative
+"I am not happy with this experience",negative
+"I do not hate programming",positive
+"This product is not bad",positive
+"I cannot say anything negative about this application",positive
+"I am not unhappy with the results",positive
+"This software is not difficult to use",positive
+"I do not regret buying this product",positive
+"The experience was not disappointing",positive
+"This application is not a problem to use",positive
+"I cannot complain about the service",positive
+"The new version is not worse than the previous one",positive
+"I do not dislike this design",positive
+"This tool is not useless",positive
+"The results are not disappointing",positive
+"I am not against these improvements",positive
+"This product is not as expensive as I expected",positive
+"I would not change anything about this experience",positive
+"The application does not cause any problems",positive
+"I have never been so satisfied",positive
+"This was not a bad decision",positive
+"I do not have any complaints about the software",positive

@@ -6,7 +6,7 @@ def create_model():
     """
     Creates the Naive Bayes classification model.
     """
-    return MultinomialNB(alpha=0.001)
+    return MultinomialNB(alpha=0.03)
 
 
 def create_logistic_regression_model():
