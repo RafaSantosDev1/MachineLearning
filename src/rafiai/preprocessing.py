@@ -46,7 +46,7 @@ def clean_text(text):
 
     # Mark the word following a negation
     text = re.sub(
-        r"\bnot\s+(\w+)",
+        r"\bnot\s+(?:(?:a|an|the)\s+)?(\w+)",
         r"NOT_\1",
         text
     )

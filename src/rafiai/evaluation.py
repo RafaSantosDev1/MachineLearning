@@ -682,7 +682,7 @@ def evaluate_validation(
             print(f"Expected: {expected}")
             print(f"Predicted: {predicted}")
 
-    print(f"\nTotal validation errors: {errors}/")
+    print(f"\nTotal validation errors: {errors}/{len(validation_texts)}")
     print(len(validation_texts))
 
     print("\nConfusion Matrix:")

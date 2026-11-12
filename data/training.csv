@@ -497,3 +497,29 @@ text,label
 "The results were far below acceptable standards",negative
 "I experienced repeated failures during installation",negative
 "The software does not meet my needs",negative
+"I could not complete the installation",negative
+"The update did not finish successfully",negative
+"I cannot finish this process because of an error",negative
+"The program could not complete the operation",negative
+"I did not finish the configuration due to a crash",negative
+"I finished the installation without any problems",positive
+"The update completed successfully",positive
+"I managed to finish the process without errors",positive
+"The program completed the operation correctly",positive
+"I finished configuring the application successfully",positive
+"This tool saves valuable time",positive
+"The software helps me work faster",positive
+"The application reduces repetitive tasks",positive
+"I can complete my work more efficiently with this system",positive
+"This software wastes valuable time",negative
+"The application makes routine tasks slower",negative
+"I spend too much time fixing errors",negative
+"This tool creates extra work instead of saving time",negative
+"The application cuts down the time needed to complete tasks",positive
+"This software streamlines my daily workflow",positive
+"I spend less time completing repetitive work with this tool",positive
+"The system reduces the effort needed for everyday tasks",positive
+"This application increases the time needed to complete tasks",negative
+"The software makes my daily workflow more complicated",negative
+"I spend more time completing simple tasks with this tool",negative
+"The system makes everyday tasks unnecessarily time consuming",negative

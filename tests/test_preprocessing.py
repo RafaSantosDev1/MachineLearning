@@ -28,3 +28,15 @@ def test_clean_text_without_difficulties():
 
 def test_clean_text_never():
     assert "NOT_use" in clean_text("I never use this application")
+
+
+def test_clean_text_not_a_problem():
+    assert "NOT_problem" in clean_text(
+        "This application is not a problem to use"
+    )
+
+
+def test_clean_text_not_a_bad_decision():
+    assert "NOT_bad" in clean_text(
+        "This was not a bad decision"
+    )
