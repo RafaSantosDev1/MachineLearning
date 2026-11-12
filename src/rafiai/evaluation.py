@@ -321,3 +321,78 @@ def optimize_naive_bayes(texts, labels):
                 f"{metric_name.capitalize()}: "
                 f"{scores.mean():.2%}"
             )
+
+def grid_search_naive_bayes(texts, labels):
+    """
+    Finds the best Naive Bayes Alpha value using GridSearchCV.
+    """
+
+    class_counts = Counter(labels)
+    min_class_count = min(class_counts.values())
+
+    if min_class_count < 2:
+        print("\nNot enough examples for GridSearchCV.")
+        return None
+
+    n_splits = min(5, min_class_count)
+
+    pipeline = Pipeline([
+        ("cleaning", FunctionTransformer(clean_texts, validate=False)),
+        ("tfidf", TfidfVectorizer(
+            token_pattern=r"(?u)\b\w+\b",
+            ngram_range=(1, 2)
+        )),
+        ("classifier", MultinomialNB())
+    ])
+
+    parameter_grid = {
+        "classifier__alpha": [
+            0.001,
+            0.005,
+            0.01,
+            0.02,
+            0.03,
+            0.05
+        ]
+    }
+
+    cross_validation = StratifiedKFold(
+        n_splits=n_splits,
+        shuffle=True,
+        random_state=42
+    )
+
+    search = GridSearchCV(
+        estimator=pipeline,
+        param_grid=parameter_grid,
+        scoring="f1_macro",
+        cv=cross_validation,
+        n_jobs=-1,
+        return_train_score=True
+    )
+
+    print("\n================================")
+    print("   RafiAI - Grid Search")
+    print("================================")
+
+    search.fit(texts, labels)
+
+    print("\nResults:")
+
+    for index, params in enumerate(search.cv_results_["params"]):
+
+        mean_score = search.cv_results_["mean_test_score"][index]
+        std_score = search.cv_results_["std_test_score"][index]
+
+        print(
+            f"Alpha: {params['classifier__alpha']} | "
+            f"F1-score: {mean_score:.2%} | "
+            f"Standard Deviation: {std_score:.2%}"
+        )
+
+    print("\nBest configuration:")
+    print(f"Alpha: {search.best_params_['classifier__alpha']}")
+    print(f"Best F1-score: {search.best_score_:.2%}")
+
+    return search.best_estimator_
+

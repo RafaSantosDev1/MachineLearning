@@ -62,3 +62,23 @@ Accuracy	68,17%	    Acerta aproximadamente 68 em cada 100 exemplos.
 Precision	69,99%	    As previsões têm uma precisão média de cerca de 70%.
 Recall	    58,03%	    Identifica aproximadamente 58% dos exemplos de cada classe.
 F1-score	55,53%	    O equilíbrio entre Precision e Recall ainda é relativamente baixo.
+
+======================================
+
+   ## RafiAI - Grid Search
+
+Results:
+Alpha: 0.001 | F1-score: 61.24% | Standard Deviation: 7.44%
+Alpha: 0.005 | F1-score: 61.72% | Standard Deviation: 7.36%
+Alpha: 0.01 | F1-score: 62.72% | Standard Deviation: 8.43%
+Alpha: 0.02 | F1-score: 63.09% | Standard Deviation: 7.05%
+Alpha: 0.03 | F1-score: 62.27% | Standard Deviation: 5.90%
+Alpha: 0.05 | F1-score: 61.40% | Standard Deviation: 4.99%
+
+Best configuration:
+Alpha: 0.02
+Best F1-score: 63.09%
+
+### O que é um modelo treinado (trained model)?
+
+É o resultado de um algoritmo que aprendeu padrões a partir dos dados de treino. No teu caso, aprendeu associações entre palavras e sentimentos positivos ou negativos.

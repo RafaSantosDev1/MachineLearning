@@ -9,7 +9,8 @@ from rafiai.evaluation import (
     cross_validate_model,
     evaluate_training_performance,
     compare_models,
-    optimize_naive_bayes
+    optimize_naive_bayes,
+    grid_search_naive_bayes
 )
 
 
@@ -77,6 +78,9 @@ def main():
 
     # Optimize Naive Bayes Alpha
     optimize_naive_bayes(training_texts, training_labels)
+
+    # Grid Search
+    grid_search_naive_bayes(training_texts, training_labels)
 
     # Interactive predictions
     print("\n================================")
