@@ -15,7 +15,13 @@ from sklearn.metrics import (
     f1_score,
     make_scorer
 )
-from sklearn.model_selection import StratifiedKFold, cross_validate, GridSearchCV
+
+from sklearn.model_selection import (
+    StratifiedKFold,
+    cross_validate,
+    GridSearchCV
+)
+
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import FunctionTransformer
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -84,7 +90,7 @@ def cross_validate_model(texts, labels):
             token_pattern=r"(?u)\b\w+\b",
             ngram_range=(1, 2)
         )),
-        ("classifier", MultinomialNB())
+        ("classifier", create_model())
     ])
 
     cross_validation = StratifiedKFold(
@@ -261,14 +267,15 @@ def optimize_naive_bayes(texts, labels):
     )
 
     alpha_values = [
-    0.001,
-    0.005,
-    0.01,
-    0.02,
-    0.03,
-    0.04,
-    0.05
+        0.001,
+        0.005,
+        0.01,
+        0.02,
+        0.03,
+        0.04,
+        0.05
     ]
+
     scoring = {
         "accuracy": "accuracy",
         "precision": make_scorer(
@@ -322,9 +329,11 @@ def optimize_naive_bayes(texts, labels):
                 f"{scores.mean():.2%}"
             )
 
+
 def grid_search_naive_bayes(texts, labels):
     """
     Finds the best Naive Bayes Alpha value using GridSearchCV.
+    Returns the best trained model and TF-IDF vectorizer.
     """
 
     class_counts = Counter(labels)
@@ -368,7 +377,8 @@ def grid_search_naive_bayes(texts, labels):
         scoring="f1_macro",
         cv=cross_validation,
         n_jobs=-1,
-        return_train_score=True
+        return_train_score=True,
+        refit=True
     )
 
     print("\n================================")
@@ -394,5 +404,10 @@ def grid_search_naive_bayes(texts, labels):
     print(f"Alpha: {search.best_params_['classifier__alpha']}")
     print(f"Best F1-score: {search.best_score_:.2%}")
 
-    return search.best_estimator_
+    # Extract the best trained components
+    best_pipeline = search.best_estimator_
 
+    best_model = best_pipeline.named_steps["classifier"]
+    best_vectorizer = best_pipeline.named_steps["tfidf"]
+
+    return best_model, best_vectorizer

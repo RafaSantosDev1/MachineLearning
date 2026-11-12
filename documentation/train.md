@@ -82,3 +82,61 @@ Best F1-score: 63.09%
 ### O que é um modelo treinado (trained model)?
 
 É o resultado de um algoritmo que aprendeu padrões a partir dos dados de treino. No teu caso, aprendeu associações entre palavras e sentimentos positivos ou negativos.
+
+
+
+
+
+
+
+
+
+========================================================================
+
+´´´´´´´´´´´´´´´´´´´´´´
+================================
+          RafiAI
+================================
+
+Select a mode:
+1. Development Mode
+2. Usage Mode
+0. Exit
+
+Option:
+´´´´´´´´´´´´´´´´´´´´´´
+
+Escolhe 1 para treinar e avaliar o modelo.
+Quando terminar, volta ao menu.
+Escolhe 2 para carregar o modelo e testar frases.
+Escreve I love Python.
+Escreve exit para sair do modo de utilização.
+
+
+-----------------------------------
+
+
+Antes:
+Criar Naive Bayes
+      |
+Treinar modelo
+      |
+Guardar modelo
+      |
+Executar Grid Search
+
+
+Agora:
+Carregar dados
+      |
+Executar avaliações
+      |
+Grid Search
+      |
+Selecionar melhor configuração
+      |
+Treinar melhor modelo com todos os dados
+      |
+Guardar modelo e Vectorizer
+      |
+Avaliar modelo

@@ -1,183 +1,262 @@
+
 text,label
-positive,positive
-negative,negative
-Positive,positive
-Negative,negative
-0,negative
-1,positive
-I love programming,positive
-Python is fantastic,positive
-I really like technology,positive
-Learning artificial intelligence is interesting,positive
-This project is fun,positive
-The code works perfectly,positive
-I'm very satisfied with the result,positive
-Developing applications is amazing,positive
-I don't like programming,negative
-Python is very complicated,negative
-I hate this program,negative
-Learning this is boring,negative
-This project is frustrating,negative
-The code is full of errors,negative
-I'm very dissatisfied,negative
-Developing applications is zzzz,negative
-I'm excited about football,positive
-I'm excited about Python,positive
-I am excited,positive
-I feel excited,positive
-This is exciting,positive
-I am very happy,positive
-I love this,positive
-I am disappointed,negative
-I feel terrible,negative
-This is boring,negative
-I hate this,negative
-I feel sad,negative
-good,positive
-very good,positive
-this is good,positive
-bad,negative
-very bad,negative
-this is bad,negative
-bom,positive
-muito bom,positive
-isto é bom,positive
-mau,negative
-muito mau,negative
-isto é mau,negative
-I am delighted,positive
-I am thrilled,positive
-I am pleased with my progress,positive
-I feel wonderful,positive
-I feel amazing today,positive
-I am proud of myself,positive
-I had a great experience,positive
-Everything is going well,positive
-This is absolutely brilliant,positive
-I appreciate your help,positive
-I enjoy learning new things,positive
-I had a wonderful day,positive
-That was an excellent idea,positive
-I am grateful for this opportunity,positive
-I am looking forward to tomorrow,positive
-This makes me smile,positive
-I couldn't be happier,positive
-I am having a great time,positive
-The results are excellent,positive
-I really enjoyed this experience,positive
-I am miserable,negative
-I am frustrated with everything,negative
-I feel awful today,negative
-I am extremely unhappy,negative
-This was a terrible experience,negative
-Nothing is going right,negative
-I regret this decision,negative
-I am tired of this situation,negative
-This is absolutely disappointing,negative
-I cannot stand this,negative
-I am worried about the result,negative
-I feel hopeless,negative
-Everything went wrong,negative
-This is a complete disaster,negative
-I am annoyed by this,negative
-I had a horrible day,negative
-I am struggling with this problem,negative
-This makes me angry,negative
-I wish this was better,negative
-I am not satisfied with this,negative
-I do not enjoy this,negative
-I do not like this,negative
-This is not good,negative
-I am not happy with the result,negative
-I have no interest in this,negative
-Yes I love it,positive
-Yes that is wonderful,positive
-No I hate it,negative
-No this is terrible , negative
-I am happy,positive
-I feel happy,positive
-I am very happy,positive
-I feel very happy,positive
-I am excited,positive
-I feel excited,positive
-I love this,positive
-I am sad,negative
-I feel sad,negative
-I am very sad,negative
-I feel terrible,negative
-I am disappointed,negative
-I hate this,negative
-I feel unhappy,negative
-I love Benfica,positive
-Benfica,positive
-Benfica is the greatest club.,positive
-I hate this project,negative
-This is absolutely terrible,negative
-I am feeling sad today,negative
-Everything is going wrong,negative
-I really dislike programming,negative
-This application is horrible,negative
-I had a terrible day,negative
-I am very disappointed,negative
-This is the worst experience ever,negative
-I feel unhappy and frustrated,negative
-The results are disappointing,negative
-I really dislike this idea,negative
-Today was a horrible day,negative
-I am ashamed of my work,negative
-This makes me very sad,negative
-I hate learning new things,negative
-The game is really boring,negative
-I had a terrible experience,negative
-This solution does not work,negative
-I am dissatisfied with the results,negative
-Everything looks awful,negative
-I feel unlucky today,negative
-That was a terrible idea,negative
-I absolutely hate this situation,negative
-This is very frustrating,negative
-I am having a horrible time,negative
-The food tastes disgusting,negative
-I feel unmotivated,negative
-My team did a terrible job,negative
-I regret everything,negative
-This is completely useless,negative
-I really dislike your suggestion,negative
-The weather is horrible,negative
-I feel terrible,negative
-This movie is boring,negative
-I had an awful weekend,negative
-The new update is disappointing,negative
-I am unhappy with my progress,negative
-This is not what I wanted,negative
-The experience was unpleasant,negative
-I feel worried about tomorrow,negative
-My project is not working,negative
-I hate being alone,negative
-This is a terrible opportunity,negative
-I am afraid of failing,negative
-The performance is disappointing,negative
-That makes me feel worse,negative
-I regret this experience,negative
-Everything is going terribly,negative
-I am very frustrated,negative
-I am not sad,positive
-I am not disappointed,positive
-I don't hate this,positive
-This is not bad,positive
-I am feeling better,positive
-I don't feel terrible,positive
-This is quite good,positive
-I am really enjoying this,positive
-I have no complaints,positive
-I couldn't be happier,positive
-I am not happy,negative
-I am not excited,negative
-I don't like this,negative
-This is not good,negative
-I am feeling worse,negative
-I don't feel well,negative
-This is quite bad,negative
-I am really disappointed,negative
-I have many complaints,negative
-I couldn't enjoy this,negative
+" I love programming","positive"
+"Python is fantastic","positive"
+"I really like technology","positive"
+"Learning artificial intelligence is interesting","positive"
+"This project is fun","positive"
+"The code works perfectly","positive"
+"I'm very satisfied with the result","positive"
+"Developing applications is amazing","positive"
+"I'm excited about football","positive"
+"I'm excited about Python","positive"
+"I am excited","positive"
+"I feel excited","positive"
+"This is exciting","positive"
+"I am very happy","positive"
+"I love this","positive"
+"good","positive"
+"very good","positive"
+"this is good","positive"
+"bom","positive"
+"muito bom","positive"
+"isto é bom","positive"
+"I am delighted","positive"
+"I am thrilled","positive"
+"I am pleased with my progress","positive"
+"I feel wonderful","positive"
+"I feel amazing today","positive"
+"I am proud of myself","positive"
+"I had a great experience","positive"
+"Everything is going well","positive"
+"This is absolutely brilliant","positive"
+"I appreciate your help","positive"
+"I enjoy learning new things","positive"
+"I had a wonderful day","positive"
+"That was an excellent idea","positive"
+"I am grateful for this opportunity","positive"
+"I am looking forward to tomorrow","positive"
+"This makes me smile","positive"
+"I couldn't be happier","positive"
+"I am having a great time","positive"
+"The results are excellent","positive"
+"I really enjoyed this experience","positive"
+"Yes I love it","positive"
+"Yes that is wonderful","positive"
+"I am happy","positive"
+"I feel happy","positive"
+"I feel very happy","positive"
+"I love Benfica","positive"
+"Benfica","positive"
+"Benfica is the greatest club","positive"
+"I am not sad","positive"
+"I am not disappointed","positive"
+"I don't hate this","positive"
+"This is not bad","positive"
+"I am feeling better","positive"
+"I don't feel terrible","positive"
+"This is quite good","positive"
+"I am really enjoying this","positive"
+"I have no complaints","positive"
+"I am not unhappy","positive"
+"I feel much better today","positive"
+"I enjoy playing football","positive"
+"Programming makes me happy","positive"
+"I love writing code","positive"
+"Coding is enjoyable","positive"
+"I like learning Python","positive"
+"Java is interesting","positive"
+"Building applications is rewarding","positive"
+"I am enjoying this project","positive"
+"This software is excellent","positive"
+"The application works very well","positive"
+"I solved the programming problem","positive"
+"I am happy with my progress","positive"
+"Learning new skills is rewarding","positive"
+"Technology makes life easier","positive"
+"I had a fantastic weekend","positive"
+"My team played brilliantly","positive"
+"Football is great","positive"
+"Winning the match feels amazing","positive"
+"I am enjoying my new job","positive"
+"Today has been a wonderful day","positive"
+"I am optimistic about the future","positive"
+"This solution is helpful","positive"
+"The experience was pleasant","positive"
+"I feel confident about my work","positive"
+"I am satisfied with the application","positive"
+"This update is much better","positive"
+"I really appreciate this opportunity","positive"
+"Everything is working perfectly","positive"
+"I am excited to learn more","positive"
+"This makes me feel great","positive"
+"I am having fun learning","positive"
+"I love solving problems","positive"
+"That was a brilliant performance","positive"
+"I am pleased with the outcome","positive"
+"Python makes programming enjoyable","positive"
+"I enjoy developing software","positive"
+"That was a successful project","positive"
+"Learning Java is exciting","positive"
+"I feel motivated today","positive"
+"I am enthusiastic about this idea","positive"
+"The new feature is fantastic","positive"
+"This is better than expected","positive"
+"That was a great decision","positive"
+"Everything turned out well","positive"
+"I am thankful for your support","positive"
+"I feel lucky today","positive"
+"That was an enjoyable experience","positive"
+"I am satisfied with my results","positive"
+"I am miserable","negative"
+"I am frustrated with everything","negative"
+"I feel awful today","negative"
+"I am extremely unhappy","negative"
+"This was a terrible experience","negative"
+"Nothing is going right","negative"
+"I regret this decision","negative"
+"I am tired of this situation","negative"
+"This is absolutely disappointing","negative"
+"I cannot stand this","negative"
+"I am worried about the result","negative"
+"I feel hopeless","negative"
+"Everything went wrong","negative"
+"This is a complete disaster","negative"
+"I am annoyed by this","negative"
+"I had a horrible day","negative"
+"I am struggling with this problem","negative"
+"This makes me angry","negative"
+"I wish this was better","negative"
+"I am not satisfied with this","negative"
+"I do not enjoy this","negative"
+"I do not like this","negative"
+"This is not good","negative"
+"I am not happy with the result","negative"
+"I have no interest in this","negative"
+"No I hate it","negative"
+"No this is terrible","negative"
+"I am sad","negative"
+"I feel sad","negative"
+"I am very sad","negative"
+"I feel terrible","negative"
+"I am disappointed","negative"
+"I hate this","negative"
+"I feel unhappy","negative"
+"I hate this project","negative"
+"This is absolutely terrible","negative"
+"I am feeling sad today","negative"
+"Everything is going wrong","negative"
+"I really dislike programming","negative"
+"This application is horrible","negative"
+"I had a terrible day","negative"
+"I am very disappointed","negative"
+"This is the worst experience ever","negative"
+"I feel unhappy and frustrated","negative"
+"The results are disappointing","negative"
+"I really dislike this idea","negative"
+"Today was a horrible day","negative"
+"I am ashamed of my work","negative"
+"This makes me very sad","negative"
+"I hate learning new things","negative"
+"The game is really boring","negative"
+"I had a terrible experience","negative"
+"This solution does not work","negative"
+"I am dissatisfied with the results","negative"
+"Everything looks awful","negative"
+"I feel unlucky today","negative"
+"That was a terrible idea","negative"
+"I absolutely hate this situation","negative"
+"This is very frustrating","negative"
+"I am having a horrible time","negative"
+"The food tastes disgusting","negative"
+"I feel unmotivated","negative"
+"My team did a terrible job","negative"
+"I regret everything","negative"
+"This is completely useless","negative"
+"I really dislike your suggestion","negative"
+"The weather is horrible","negative"
+"This movie is boring","negative"
+"I had an awful weekend","negative"
+"The new update is disappointing","negative"
+"I am unhappy with my progress","negative"
+"This is not what I wanted","negative"
+"The experience was unpleasant","negative"
+"I feel worried about tomorrow","negative"
+"My project is not working","negative"
+"I hate being alone","negative"
+"This is a terrible opportunity","negative"
+"I am afraid of failing","negative"
+"The performance is disappointing","negative"
+"That makes me feel worse","negative"
+"I regret this experience","negative"
+"Everything is going terribly","negative"
+"I am very frustrated","negative"
+"I am not happy","negative"
+"I am not excited","negative"
+"I don't like this","negative"
+"I am feeling worse","negative"
+"I don't feel well","negative"
+"This is quite bad","negative"
+"I am really disappointed","negative"
+"I have many complaints","negative"
+"bad","negative"
+"very bad","negative"
+"this is bad","negative"
+"mau","negative"
+"muito mau","negative"
+"isto é mau","negative"
+"I don't like programming","negative"
+"Python is very complicated","negative"
+"I hate this program","negative"
+"Learning this is boring","negative"
+"This project is frustrating","negative"
+"The code is full of errors","negative"
+"I'm very dissatisfied","negative"
+"I am not excited about this","negative"
+"I couldn't enjoy this","negative"
+"I hate writing code","negative"
+"This software is disappointing","negative"
+"Programming is making me frustrated","negative"
+"Coding is exhausting","negative"
+"I dislike learning Python","negative"
+"Java is difficult and frustrating","negative"
+"Building applications is stressful","negative"
+"I am unhappy with this project","negative"
+"The application keeps crashing","negative"
+"The code never works","negative"
+"I cannot solve this problem","negative"
+"This update made everything worse","negative"
+"I am disappointed with the software","negative"
+"Learning programming is frustrating","negative"
+"I feel stressed about my work","negative"
+"Football is boring","negative"
+"My team played terribly","negative"
+"Losing the match was disappointing","negative"
+"I am angry about the result","negative"
+"Today was a very bad day","negative"
+"I am pessimistic about the future","negative"
+"This solution is useless","negative"
+"The experience was unpleasant and frustrating","negative"
+"I have lost motivation","negative"
+"I am tired of making mistakes","negative"
+"The results are much worse than expected","negative"
+"I hate solving this problem","negative"
+"Nothing works correctly","negative"
+"This project is a complete failure","negative"
+"I feel disappointed with my progress","negative"
+"The new feature is terrible","negative"
+"I am not enjoying this experience","negative"
+"That was a poor decision","negative"
+"Everything turned out badly","negative"
+"I am unhappy with the outcome","negative"
+"I regret starting this project","negative"
+"This application is difficult to use","negative"
+"I feel anxious about tomorrow","negative"
+"I am frustrated by these errors","negative"
+"Programming makes me feel stressed","negative"
+"I do not recommend this product","negative"
+"This is worse than before","negative"
+"I am having a difficult day","negative"
+"I feel discouraged","negative"
+"I am fed up with this situation","negative"
+"The software is unreliable","negative"

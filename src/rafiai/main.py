@@ -1,94 +1,36 @@
 
-from rafiai.data_loader import load_dataset
-from rafiai.preprocessing import run_preprocessing, transform_texts
-from rafiai.train import create_model, train_model
+from rafiai.model_storage import model_exists, load_model
 from rafiai.predict import predict_sentiment
-from rafiai.model_storage import model_exists, save_model, load_model
-from rafiai.evaluation import (
-    evaluate_model,
-    cross_validate_model,
-    evaluate_training_performance,
-    compare_models,
-    optimize_naive_bayes,
-    grid_search_naive_bayes
-)
+from rafiai.development import run_development
 
 
-def main():
-    print("================================")
-    print("          RafiAI")
-    print("================================")
+def run_usage():
+    """
+    Executes the RafiAI usage mode.
+    """
 
-    # Load training dataset
-    training_data = load_dataset("training.csv")
+    if not model_exists():
+        print("\nNo trained model found.")
+        print("Please run Development Mode first.")
+        return
 
-    training_texts = training_data["text"].tolist()
-    training_labels = training_data["label"].tolist()
+    print("\nLoading saved model...")
 
-    # Load or train model
-    if model_exists():
-        print("\nLoading saved model...")
+    saved_data = load_model()
 
-        saved_data = load_model()
-        model = saved_data["model"]
-        vectorizer = saved_data["vectorizer"]
+    model = saved_data["model"]
+    vectorizer = saved_data["vectorizer"]
 
-        print("Model loaded successfully!")
+    print("Model loaded successfully!")
 
-    else:
-        print("\nTraining new model...")
-
-        vectorizer, training_matrix = run_preprocessing(training_texts)
-
-        model = create_model()
-        model = train_model(model, training_matrix, training_labels)
-
-        save_model(model, vectorizer)
-
-        print("Model trained and saved successfully!")
-
-    # Training performance
-    training_matrix = transform_texts(vectorizer, training_texts)
-
-    evaluate_training_performance(
-        model,
-        training_matrix,
-        training_labels
-    )
-
-    # Testing performance
-    testing_data = load_dataset("testing.csv")
-
-    testing_texts = testing_data["text"].tolist()
-    testing_labels = testing_data["label"].tolist()
-
-    testing_matrix = transform_texts(vectorizer, testing_texts)
-
-    evaluate_model(
-        model,
-        testing_matrix,
-        testing_labels
-    )
-
-    # Cross-Validation
-    cross_validate_model(training_texts, training_labels)
-
-    # Compare machine learning models
-    compare_models(training_texts, training_labels)
-
-    # Optimize Naive Bayes Alpha
-    optimize_naive_bayes(training_texts, training_labels)
-
-    # Grid Search
-    grid_search_naive_bayes(training_texts, training_labels)
-
-    # Interactive predictions
     print("\n================================")
     print("       RafiAI - Prediction")
     print("================================")
 
     while True:
-        user_text = input("\nWrite a sentence (or 'exit' to quit): ")
+        user_text = input(
+            "\nWrite a sentence (or 'exit' to quit): "
+        )
 
         if user_text.lower() == "exit":
             print("RafiAI closed.")
@@ -105,7 +47,10 @@ def main():
         )
 
         if result is None:
-            print("RafiAI does not recognize the words in this sentence.")
+            print(
+                "RafiAI does not recognize the words "
+                "in this sentence."
+            )
             continue
 
         print(f"\nPrediction: {result}")
@@ -114,6 +59,33 @@ def main():
 
         for sentiment, probability in probabilities.items():
             print(f"{sentiment}: {probability:.2%}")
+
+
+def main():
+    print("================================")
+    print("          RafiAI")
+    print("================================")
+
+    while True:
+        print("\nSelect a mode:")
+        print("1. Development Mode")
+        print("2. Usage Mode")
+        print("0. Exit")
+
+        option = input("\nOption: ").strip()
+
+        if option == "1":
+            run_development()
+
+        elif option == "2":
+            run_usage()
+
+        elif option == "0":
+            print("\nRafiAI closed.")
+            break
+
+        else:
+            print("\nInvalid option. Try again.")
 
 
 if __name__ == "__main__":
