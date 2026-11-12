@@ -27,9 +27,11 @@ from sklearn.preprocessing import FunctionTransformer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
 
-from rafiai.preprocessing import clean_texts
-
-
+from rafiai.preprocessing import (
+    clean_texts,
+    create_vectorizer,
+    transform_texts
+)
 def create_pipeline(classifier):
     """
     Creates a machine learning pipeline.
@@ -306,23 +308,29 @@ def grid_search_naive_bayes(texts, labels):
     return best_model, best_vectorizer
 
 
+
 def analyze_vocabulary(vectorizer, testing_texts, testing_labels, predictions):
     """
-    Analyzes vocabulary used in incorrectly classified sentences.
+    Analyzes incorrectly classified sentences and their vocabulary.
     """
 
     analyzer = vectorizer.build_analyzer()
     vocabulary = set(vectorizer.get_feature_names_out())
 
-    incorrect_count = 0
+    errors = 0
+
+    print("\n================================")
+    print("       RafiAI - Error Analysis")
+    print("================================")
 
     for text, actual, predicted in zip(
         testing_texts,
         testing_labels,
         predictions
     ):
+
         if actual != predicted:
-            incorrect_count += 1
+            errors += 1
 
             cleaned_text = clean_texts([text])[0]
             features = analyzer(cleaned_text)
@@ -337,11 +345,16 @@ def analyze_vocabulary(vectorizer, testing_texts, testing_labels, predictions):
                 if word not in vocabulary
             ]
 
-            print(f"\nIncorrect: {text}")
+            print(f"\nSentence: {text}")
+            print(f"Expected: {actual}")
+            print(f"Predicted: {predicted}")
+            print(f"Recognized features: {recognized}")
             print(f"Unknown features: {missing}")
 
-    if incorrect_count == 0:
+    if errors == 0:
         print("\nAll predictions were correct!")
+
+    print(f"\nTotal errors: {errors}/{len(testing_labels)}")
 
 
 def analyze_sentiment_vocabulary(texts, labels):
@@ -369,3 +382,316 @@ def analyze_sentiment_vocabulary(texts, labels):
         "positive": positive_words.most_common(20),
         "negative": negative_words.most_common(20)
     }
+
+def analyze_confusion_and_confidence(
+    model,
+    testing_matrix,
+    testing_texts,
+    testing_labels,
+    predictions
+):
+    """
+    Displays the confusion matrix and analyzes prediction confidence.
+    """
+
+    probabilities = model.predict_proba(testing_matrix)
+
+    classes = model.classes_
+
+    matrix = confusion_matrix(
+        testing_labels,
+        predictions,
+        labels=classes
+    )
+
+    print("\n================================")
+    print("       RafiAI - Confusion Matrix")
+    print("================================")
+
+    print(f"\nClasses: {list(classes)}")
+    print(matrix)
+
+    print("\nRows = Expected | Columns = Predicted")
+
+    print("\n================================")
+    print("    RafiAI - Confidence Analysis")
+    print("================================")
+
+    error_count = 0
+
+    for text, actual, predicted, probability in zip(
+        testing_texts,
+        testing_labels,
+        predictions,
+        probabilities
+    ):
+
+        if actual != predicted:
+
+            error_count += 1
+
+            predicted_index = list(classes).index(predicted)
+            actual_index = list(classes).index(actual)
+
+            predicted_probability = probability[predicted_index]
+            actual_probability = probability[actual_index]
+
+            margin = predicted_probability - actual_probability
+
+            print(f"\nSentence: {text}")
+            print(f"Expected: {actual}")
+            print(f"Predicted: {predicted}")
+
+            print(
+                f"Confidence in prediction: "
+                f"{predicted_probability:.2%}"
+            )
+
+            print(
+                f"Probability of correct class: "
+                f"{actual_probability:.2%}"
+            )
+
+            print(f"Confidence margin: {margin:.2%}")
+
+    print(f"\nTotal incorrect predictions: {error_count}")
+
+
+def analyze_feature_contributions(
+    model,
+    vectorizer,
+    testing_texts,
+    testing_labels,
+    predictions
+):
+    """
+    Analyzes which features contribute most to each incorrect prediction.
+    """
+
+    feature_names = vectorizer.get_feature_names_out()
+    classes = list(model.classes_)
+
+    negative_index = classes.index("negative")
+    positive_index = classes.index("positive")
+
+    feature_log_prob = model.feature_log_prob_
+
+    print("\n================================")
+    print("   RafiAI - Feature Contribution")
+    print("================================")
+
+    errors = 0
+
+    for text, actual, predicted in zip(
+        testing_texts,
+        testing_labels,
+        predictions
+    ):
+
+        if actual == predicted:
+            continue
+
+        errors += 1
+
+        cleaned_text = clean_texts([text])[0]
+        text_matrix = vectorizer.transform([cleaned_text])
+
+        feature_indices = text_matrix.nonzero()[1]
+        feature_values = text_matrix.data
+
+        contributions = []
+
+        for index, value in zip(feature_indices, feature_values):
+
+            negative_score = (
+                value * feature_log_prob[negative_index][index]
+            )
+
+            positive_score = (
+                value * feature_log_prob[positive_index][index]
+            )
+
+            difference = positive_score - negative_score
+
+            contributions.append({
+                "feature": feature_names[index],
+                "negative": negative_score,
+                "positive": positive_score,
+                "difference": difference
+            })
+
+        contributions.sort(
+            key=lambda item: abs(item["difference"]),
+            reverse=True
+        )
+
+        print(f"\nSentence: {text}")
+        print(f"Expected: {actual}")
+        print(f"Predicted: {predicted}")
+
+        print("\nFeature contributions:")
+
+        for item in contributions[:10]:
+
+            direction = (
+                "positive"
+                if item["difference"] > 0
+                else "negative"
+            )
+
+            print(
+                f"{item['feature']:<25} "
+                f"Direction: {direction:<8} "
+                f"Difference: {item['difference']:.4f}"
+            )
+
+    if errors == 0:
+        print("\nNo classification errors found.")
+
+    print(f"\nTotal analyzed errors: {errors}")
+
+
+
+
+def analyze_feature_distribution(
+    training_texts,
+    training_labels,
+    features
+):
+    """
+    Analyzes the distribution of selected features across classes.
+    Also displays the training sentences containing each feature.
+    """
+
+    analyzer = create_vectorizer().build_analyzer()
+
+    feature_examples = {
+        feature: {
+            "positive": [],
+            "negative": []
+        }
+        for feature in features
+    }
+
+    class_counts = Counter(training_labels)
+
+    for text, label in zip(training_texts, training_labels):
+
+        text_features = set(
+            analyzer(clean_texts([text])[0])
+        )
+
+        for feature in features:
+
+            if feature in text_features:
+                feature_examples[feature][label].append(text)
+
+    print("\n================================")
+    print("   RafiAI - Feature Distribution")
+    print("================================")
+
+    for feature, examples in feature_examples.items():
+
+        positive = examples["positive"]
+        negative = examples["negative"]
+
+        print(f"\nFeature: {feature}")
+
+        print(
+            f"Positive: {len(positive)}/"
+            f"{class_counts['positive']}"
+        )
+
+        print(
+            f"Negative: {len(negative)}/"
+            f"{class_counts['negative']}"
+        )
+
+        for label, sentences in examples.items():
+
+            if sentences:
+
+                print(f"\n{label.upper()} examples:")
+
+                for sentence in sentences:
+                    print(f" - {sentence}")
+
+
+
+def evaluate_validation(
+    model,
+    vectorizer,
+    validation_texts,
+    validation_labels
+):
+    """
+    Evaluates the model using an independent validation dataset.
+    """
+
+    print("\n================================")
+    print("   RafiAI - Independent Validation")
+    print("================================")
+
+    validation_matrix = transform_texts(
+        vectorizer,
+        validation_texts
+    )
+
+    predictions = model.predict(validation_matrix)
+
+    accuracy = accuracy_score(validation_labels, predictions)
+    precision = precision_score(
+        validation_labels,
+        predictions,
+        average="macro",
+        zero_division=0
+    )
+    recall = recall_score(
+        validation_labels,
+        predictions,
+        average="macro",
+        zero_division=0
+    )
+    f1 = f1_score(
+        validation_labels,
+        predictions,
+        average="macro",
+        zero_division=0
+    )
+
+    print("\nValidation Performance:")
+    print(f"Accuracy:  {accuracy * 100:.2f}%")
+    print(f"Precision: {precision * 100:.2f}%")
+    print(f"Recall:    {recall * 100:.2f}%")
+    print(f"F1-score:  {f1 * 100:.2f}%")
+
+    print("\n================================")
+    print("   RafiAI - Validation Errors")
+    print("================================")
+
+    errors = 0
+
+    for text, expected, predicted in zip(
+        validation_texts,
+        validation_labels,
+        predictions
+    ):
+        if expected != predicted:
+            errors += 1
+            print(f"\nSentence: {text}")
+            print(f"Expected: {expected}")
+            print(f"Predicted: {predicted}")
+
+    print(f"\nTotal validation errors: {errors}/")
+    print(len(validation_texts))
+
+    print("\nConfusion Matrix:")
+    print(confusion_matrix(
+        validation_labels,
+        predictions,
+        labels=model.classes_
+    ))
+
+    return predictions
+
+   

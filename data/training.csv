@@ -400,3 +400,61 @@ text,label
 "I have never been so satisfied",positive
 "This was not a bad decision",positive
 "I do not have any complaints about the software",positive
+"This interface is easy to navigate","positive"
+"Learning programming is my passion","positive"
+"The latest design looks impressive","positive"
+"This feature is useful for daily tasks","positive"
+"The application runs smoothly","positive"
+"The team delivered an outstanding result","positive"
+"Choosing this solution was a smart decision","positive"
+"The platform has been reliable for months","positive"
+"I welcome these positive changes","positive"
+"The instructions are clear and easy to follow","positive"
+"Working on this project feels rewarding","positive"
+"Everything works exactly as expected","positive"
+"The update caused unexpected errors","negative"
+"Several features stopped working","negative"
+"The final result is unacceptable","negative"
+"I feel nervous about using this system","negative"
+"The application crashes during startup","negative"
+"The service has become unreliable","negative"
+"The new version performs poorly","negative"
+"These changes made the process frustrating","negative"
+"The installation failed repeatedly","negative"
+"The software is difficult to configure","negative"
+"Support was unhelpful and slow","negative"
+"The latest release introduced serious problems","negative"
+
+"The project was completed ahead of schedule","positive"
+"The task was completed successfully","positive"
+"This application is extremely helpful","positive"
+"The support team was very helpful","positive"
+"I feel comfortable using this software","positive"
+"The interface is comfortable and intuitive","positive"
+"The new design is impressive and modern","positive"
+"This solution is reliable and efficient","positive"
+"The instructions made everything easy","positive"
+"The experience was rewarding and enjoyable","positive"
+"The software works perfectly","positive"
+"The final result exceeded my expectations","positive"
+"The interface is confusing and difficult to use","negative"
+"The instructions are confusing","negative"
+"The application is confusing for beginners","negative"
+"The project was completed incorrectly","negative"
+"The update made the application unstable","negative"
+"The software is unreliable and frustrating","negative"
+"I feel uncomfortable using this application","negative"
+"The system is difficult to understand","negative"
+"The new version is disappointing","negative"
+"The support team was unhelpful","negative"
+"The application failed to complete the task","negative"
+"The final result was extremely disappointing","negative"
+
+"The system is reliable and easy to use",positive
+"This system works exactly as expected",positive
+"The system makes my work easier",positive
+"This program is useful and reliable",positive
+"The program runs smoothly",positive
+"I enjoy using this program",positive
+"These changes improved the experience",positive
+"I am happy with these changes",positive

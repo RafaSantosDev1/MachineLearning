@@ -1,0 +1,42 @@
+
+text,label
+"I had a wonderful experience today",positive
+"The new feature saves me a lot of time",positive
+"Everything worked better than I expected",positive
+"I am pleased with the final outcome",positive
+"The software makes my daily tasks easier",positive
+"I would happily recommend this service",positive
+"The instructions were clear and useful",positive
+"This tool helped me solve the problem",positive
+"The performance has improved significantly",positive
+"I really enjoyed working with this application",positive
+"The team delivered excellent results",positive
+"This solution meets all my requirements",positive
+"The latest update fixed several problems",positive
+"I am impressed by the overall quality",positive
+"The process was simple and efficient",positive
+"I had no difficulty completing the task",positive
+"The product offers great value",positive
+"Everything is running smoothly now",positive
+"I appreciate the improvements in this version",positive
+"The experience was better than the previous one",positive
+"The software stopped working unexpectedly",negative
+"I regret installing this application",negative
+"The latest update caused several problems",negative
+"Nothing works the way it should",negative
+"The process is unnecessarily complicated",negative
+"I wasted a lot of time trying to fix this",negative
+"The results were disappointing",negative
+"The instructions were unclear and incomplete",negative
+"This service failed to meet my expectations",negative
+"The application frequently freezes",negative
+"I would not recommend this product",negative
+"The new version introduced serious problems",negative
+"The tool is frustrating to work with",negative
+"I could not finish the task",negative
+"The performance became much worse",negative
+"This solution created more problems than it solved",negative
+"The system behaves unpredictably",negative
+"I am unhappy with the final result",negative
+"The experience was stressful and unpleasant",negative
+"The application is unreliable",negative

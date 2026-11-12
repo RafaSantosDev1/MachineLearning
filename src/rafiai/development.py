@@ -10,7 +10,12 @@ from rafiai.evaluation import (
     evaluate_training_performance,
     compare_models,
     optimize_naive_bayes,
-    grid_search_naive_bayes
+    grid_search_naive_bayes,
+    analyze_vocabulary,
+    analyze_confusion_and_confidence,
+    analyze_feature_contributions,
+    analyze_feature_distribution,
+    evaluate_validation
 )
 
 from sklearn.metrics import accuracy_score, f1_score
@@ -69,7 +74,21 @@ def run_development():
         training_labels
     )
 
-    print("\n[5/5] Evaluating model...")
+    print("\n[5/6] Evaluating independent validation data...")
+
+    validation_data = load_dataset("validation.csv")
+
+    validation_texts = validation_data["text"].tolist()
+    validation_labels = validation_data["label"].tolist()
+
+    evaluate_validation(
+        model,
+        vectorizer,
+        validation_texts,
+        validation_labels
+    )
+    
+    print("\n[6/6] Evaluating model...")
 
     testing_data = load_dataset("testing.csv")
     testing_texts = testing_data["text"].tolist()
@@ -85,6 +104,47 @@ def run_development():
         testing_matrix,
         testing_labels,
         testing_texts
+    )
+
+    analyze_vocabulary(
+        vectorizer,
+        testing_texts,
+        testing_labels,
+        predictions
+    )
+    analyze_confusion_and_confidence(
+        model,
+        testing_matrix,
+        testing_texts,
+        testing_labels,
+        predictions
+    )
+    analyze_feature_contributions(
+        model,
+        vectorizer,
+        testing_texts,
+        testing_labels,
+        predictions
+    )
+    features = [
+        "application",
+        "responds",
+        "quickly",
+        "system",
+        "system is",
+        "impressive",
+        "program",
+        "this program",
+        "helpful",
+        "very helpful",
+        "these changes",
+        "positive"
+    ]
+
+    analyze_feature_distribution(
+        training_texts,
+        training_labels,
+        features
     )
 
     training_accuracy = accuracy_score(
