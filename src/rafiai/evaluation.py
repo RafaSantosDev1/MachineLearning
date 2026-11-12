@@ -281,7 +281,7 @@ def grid_search_naive_bayes(texts, labels):
             0.01,
             0.02,
             0.03,
-            0.05
+            0.05    
         ]
     }
 
@@ -618,6 +618,7 @@ def analyze_feature_distribution(
 
 
 
+
 def evaluate_validation(
     model,
     vectorizer,
@@ -625,11 +626,12 @@ def evaluate_validation(
     validation_labels
 ):
     """
-    Evaluates the model using an independent validation dataset.
+    Evaluates the model using validation data and analyzes
+    the feature contributions of incorrect predictions.
     """
 
     print("\n================================")
-    print("   RafiAI - Independent Validation")
+    print("       RafiAI - Validation")
     print("================================")
 
     validation_matrix = transform_texts(
@@ -660,16 +662,22 @@ def evaluate_validation(
     )
 
     print("\nValidation Performance:")
-    print(f"Accuracy:  {accuracy * 100:.2f}%")
-    print(f"Precision: {precision * 100:.2f}%")
-    print(f"Recall:    {recall * 100:.2f}%")
-    print(f"F1-score:  {f1 * 100:.2f}%")
+    print(f"Accuracy:  {accuracy:.2%}")
+    print(f"Precision: {precision:.2%}")
+    print(f"Recall:    {recall:.2%}")
+    print(f"F1-score:  {f1:.2%}")
 
     print("\n================================")
-    print("   RafiAI - Validation Errors")
+    print("       Validation Errors")
     print("================================")
 
-    errors = 0
+    errors = sum(
+        expected != predicted
+        for expected, predicted in zip(
+            validation_labels,
+            predictions
+        )
+    )
 
     for text, expected, predicted in zip(
         validation_texts,
@@ -677,13 +685,14 @@ def evaluate_validation(
         predictions
     ):
         if expected != predicted:
-            errors += 1
             print(f"\nSentence: {text}")
             print(f"Expected: {expected}")
             print(f"Predicted: {predicted}")
 
-    print(f"\nTotal validation errors: {errors}/{len(validation_texts)}")
-    print(len(validation_texts))
+    print(
+        f"\nTotal validation errors: "
+        f"{errors}/{len(validation_texts)}"
+    )
 
     print("\nConfusion Matrix:")
     print(confusion_matrix(
@@ -692,6 +701,20 @@ def evaluate_validation(
         labels=model.classes_
     ))
 
+    if errors > 0:
+        print("\n================================")
+        print("   Validation Feature Analysis")
+        print("================================")
+
+        analyze_feature_contributions(
+            model,
+            vectorizer,
+            validation_texts,
+            validation_labels,
+            predictions
+        )
+
     return predictions
+
 
    

@@ -523,3 +523,11 @@ text,label
 "The software makes my daily workflow more complicated",negative
 "I spend more time completing simple tasks with this tool",negative
 "The system makes everyday tasks unnecessarily time consuming",negative
+"The problem was solved successfully and everything works now",positive
+"I found a simple solution to the original problem",positive
+"The latest update fixed the problems I was experiencing",positive
+"Several improvements were introduced and the issue was solved",positive
+"The problem remains unresolved despite several attempts",negative
+"The latest update introduced new problems and errors",negative
+"The solution failed to solve the original problem",negative
+"Several problems appeared after the latest release",negative
