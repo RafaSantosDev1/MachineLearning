@@ -2,6 +2,62 @@
 from rafiai.model_storage import model_exists, load_model
 from rafiai.predict import predict_sentiment
 from rafiai.development import run_development
+from rafiai.feedback_storage import save_feedback
+from rafiai.web.app import run_web
+
+
+def collect_feedback(user_text, prediction, classes):
+    """
+    Collects user feedback about a sentiment prediction.
+    """
+
+    print("\nWas the prediction correct?")
+    print("1. Yes")
+    print("2. No")
+    print("0. Skip")
+
+    while True:
+        option = input("\nOption: ").strip()
+
+        if option == "1":
+            correct_label = str(prediction)
+            break
+
+        elif option == "2":
+            print("\nAvailable sentiments:")
+
+            for sentiment in classes:
+                print(f"- {sentiment}")
+
+            correct_label = input(
+                "\nEnter the correct sentiment: "
+            ).strip().lower()
+
+            valid_labels = [
+                str(sentiment).lower()
+                for sentiment in classes
+            ]
+
+            if correct_label not in valid_labels:
+                print("Invalid sentiment. Try again.")
+                continue
+
+            break
+
+        elif option == "0":
+            print("Feedback skipped.")
+            return
+
+        else:
+            print("Invalid option. Try again.")
+
+    save_feedback(
+        user_text,
+        prediction,
+        correct_label
+    )
+
+    print("Feedback saved successfully!")
 
 
 def run_usage():
@@ -60,6 +116,12 @@ def run_usage():
         for sentiment, probability in probabilities.items():
             print(f"{sentiment}: {probability:.2%}")
 
+        collect_feedback(
+            user_text,
+            result,
+            model.classes_
+        )
+
 
 def main():
     print("================================")
@@ -70,6 +132,7 @@ def main():
         print("\nSelect a mode:")
         print("1. Development Mode")
         print("2. Usage Mode")
+        print("3. Web Interface")
         print("0. Exit")
 
         option = input("\nOption: ").strip()
@@ -79,6 +142,9 @@ def main():
 
         elif option == "2":
             run_usage()
+
+        elif option == "3":
+            run_web()
 
         elif option == "0":
             print("\nRafiAI closed.")

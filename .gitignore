@@ -218,3 +218,18 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# RafiAI - Admin credentials
+admin.txt
+
+# RafiAI - Local databases
+data/*.db
+data/*.sqlite
+data/*.sqlite3
+
+# RafiAI - Trained models
+models/*.joblib
+models/*.pkl
+
+# RafiAI - Admin credentials
+admin.txt

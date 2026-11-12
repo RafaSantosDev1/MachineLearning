@@ -1,0 +1,737 @@
+/* ========================================
+   1. GLOBAL
+======================================== */
+
+:root {
+    --background: #212121;
+    --sidebar: #171717;
+    --surface: #292929;
+    --surface-hover: #333333;
+    --border: #3b3b3b;
+    --text: #f5f5f5;
+    --muted: #a3a3a3;
+    --primary: #3b82f6;
+    --primary-hover: #2563eb;
+    --success: #22c55e;
+    --danger: #ef4444;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--background);
+    color: var(--text);
+}
+
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+/* ========================================
+   2. APPLICATION LAYOUT
+======================================== */
+
+.app-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ========================================
+   3. SIDEBAR
+======================================== */
+
+.sidebar {
+    width: 270px;
+    min-width: 270px;
+    min-height: 100vh;
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    background: var(--sidebar);
+    border-right: 1px solid var(--border);
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 10px 30px;
+}
+
+.sidebar-header h2 {
+    font-size: 23px;
+    letter-spacing: -0.7px;
+}
+
+.ai-label {
+    padding: 4px 7px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    color: var(--muted);
+    font-size: 9px;
+    letter-spacing: 1px;
+}
+
+.new-chat {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px;
+    color: var(--text);
+    text-decoration: none;
+    border: 1px solid #454545;
+    border-radius: 10px;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.new-chat:hover {
+    background: var(--surface-hover);
+    border-color: #606060;
+}
+
+.new-chat span {
+    font-size: 21px;
+}
+
+.sidebar-section {
+    margin-top: 36px;
+}
+
+.sidebar-heading {
+    padding: 0 10px 12px;
+    color: #888;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.sidebar-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 13px 12px;
+    margin-bottom: 5px;
+    border: none;
+    border-radius: 9px;
+    background: transparent;
+    color: #b4b4b4;
+    font-size: 14px;
+    text-align: left;
+    transition: background 0.2s, color 0.2s;
+}
+
+.sidebar-item span {
+    margin-right: 10px;
+}
+
+.sidebar-item.active {
+    background: var(--surface);
+    color: white;
+}
+
+.train-button:hover {
+    background: var(--surface-hover);
+    color: white;
+}
+
+.sidebar-bottom {
+    margin-top: auto;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px;
+}
+
+.profile-avatar {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    font-weight: bold;
+}
+
+.profile strong,
+.profile small {
+    display: block;
+}
+
+.profile strong {
+    font-size: 13px;
+}
+
+.profile small {
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+/* ========================================
+   4. MAIN CONTENT
+======================================== */
+
+.main-content {
+    flex: 1;
+    min-width: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.topbar {
+    height: 65px;
+    min-height: 65px;
+    padding: 0 35px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--background);
+    border-bottom: 1px solid var(--border);
+}
+
+.topbar>span:first-child {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.model-name {
+    margin-left: 9px;
+    color: var(--muted);
+    font-weight: normal;
+}
+
+.status {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.status-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin-right: 6px;
+    border-radius: 50%;
+    background: var(--success);
+}
+
+/* ========================================
+   5. CHAT AREA
+======================================== */
+
+.chat-area {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 55px 45px;
+    flex: 1;
+}
+
+.welcome {
+    max-width: 700px;
+    margin: 13vh auto 0;
+    text-align: center;
+}
+
+.welcome-icon {
+    width: 62px;
+    height: 62px;
+    margin: 0 auto 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    background: #263e65;
+    color: #93c5fd;
+    font-size: 28px;
+}
+
+.welcome h1 {
+    margin-bottom: 13px;
+    font-size: 30px;
+    letter-spacing: -0.8px;
+}
+
+.welcome p {
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+.coming-soon {
+    margin-top: 18px;
+    color: #737373 !important;
+    font-size: 13px !important;
+}
+
+/* ========================================
+   6. PREDICTION FORM
+======================================== */
+
+.prediction-form {
+    width: 100%;
+    max-width: 650px;
+    margin: 35px auto 0;
+}
+
+.prediction-form textarea {
+    width: 100%;
+    min-height: 130px;
+    padding: 18px;
+    border: 1px solid #494949;
+    border-radius: 14px;
+    outline: none;
+    background: var(--sidebar);
+    color: white;
+    font-size: 15px;
+    line-height: 1.6;
+    resize: vertical;
+}
+
+.prediction-form textarea:focus {
+    border-color: var(--primary);
+}
+
+.prediction-form textarea::placeholder {
+    color: #777;
+}
+
+/* ========================================
+   7. CONVERSATION
+======================================== */
+
+.conversation {
+    padding-top: 50px;
+}
+
+.user-message {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 45px;
+}
+
+.user-avatar,
+.assistant-avatar {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: bold;
+}
+
+.user-avatar {
+    background: #555;
+}
+
+.assistant-avatar {
+    background: var(--primary);
+}
+
+.message-content {
+    max-width: 75%;
+    padding: 15px 19px;
+    border-radius: 17px;
+    background: #303030;
+    font-size: 15px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.assistant-message {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.assistant-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.assistant-content h2 {
+    margin: 4px 0 12px;
+    font-size: 21px;
+}
+
+.response-intro {
+    margin-bottom: 25px;
+    color: #b4b4b4;
+    line-height: 1.6;
+}
+
+/* ========================================
+   8. PREDICTION RESULTS
+======================================== */
+
+.result-card {
+    margin-bottom: 25px;
+    padding: 22px;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    background: var(--surface);
+}
+
+.card-label {
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.sentiment-result {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px;
+    font-size: 22px;
+}
+
+.sentiment-indicator {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+}
+
+.sentiment-indicator.positive {
+    background: var(--success);
+}
+
+.sentiment-indicator.negative {
+    background: var(--danger);
+}
+
+/* ========================================
+   9. PROBABILITIES
+======================================== */
+
+.probabilities {
+    margin: 28px 0;
+}
+
+.probabilities h3 {
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.probability {
+    margin-top: 20px;
+}
+
+.probability-label {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 9px;
+    color: #d4d4d4;
+    font-size: 14px;
+}
+
+.progress {
+    width: 100%;
+    height: 9px;
+    overflow: hidden;
+    border-radius: 20px;
+    background: #414141;
+}
+
+.progress-bar {
+    width: var(--progress);
+    height: 100%;
+    border-radius: 20px;
+    background: linear-gradient(90deg, #3b82f6, #60a5fa);
+    transition: width 0.4s ease;
+}
+
+/* ========================================
+   10. BUTTONS
+======================================== */
+
+.feedback-button {
+    width: 100%;
+    margin-top: 22px;
+    padding: 14px 18px;
+    border: none;
+    border-radius: 10px;
+    background: var(--primary);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.feedback-button:hover {
+    background: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+.feedback-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ========================================
+   11. SUCCESS AND ERROR MESSAGES
+======================================== */
+
+.success-message,
+.error-message {
+    margin-top: 18px;
+    padding: 14px 16px;
+    border-radius: 9px;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.success-message {
+    border: 1px solid #286344;
+    background: #183b2b;
+    color: #4ade80;
+    text-align: center;
+}
+
+.error-message {
+    border: 1px solid #713535;
+    background: #442525;
+    color: #fca5a5;
+}
+
+/* ========================================
+   12. MODAL
+======================================== */
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    overflow-y: auto;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(5px);
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal {
+    position: relative;
+    width: 100%;
+    max-width: 580px;
+    max-height: calc(100vh - 40px);
+    max-height: calc(100dvh - 40px);
+    margin: auto;
+    padding: 35px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    border: 1px solid #414141;
+    border-radius: 17px;
+    background: #262626;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    animation: modal-appear 0.2s ease-out;
+}
+
+@keyframes modal-appear {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 18px;
+    padding: 4px;
+    border: none;
+    background: transparent;
+    color: #999;
+    font-size: 27px;
+    line-height: 1;
+}
+
+.modal-close:hover {
+    color: white;
+}
+
+.modal-icon {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 13px;
+    background: #303f5d;
+    font-size: 23px;
+}
+
+.modal h2 {
+    margin-bottom: 10px;
+    font-size: 24px;
+}
+
+.modal-description {
+    margin-bottom: 25px;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Modal forms */
+
+.modal form label {
+    display: block;
+    margin: 18px 0 9px;
+    color: #d4d4d4;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.modal textarea,
+.modal select {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #494949;
+    border-radius: 10px;
+    outline: none;
+    background: #171717;
+    color: white;
+    font-size: 14px;
+}
+
+.modal textarea {
+    min-height: 115px;
+    line-height: 1.6;
+    resize: vertical;
+}
+
+.modal textarea:focus,
+.modal select:focus {
+    border-color: var(--primary);
+}
+
+.modal textarea::placeholder {
+    color: #777;
+}
+
+.modal select {
+    cursor: pointer;
+}
+
+.modal .result-card {
+    margin-top: 25px;
+}
+
+.modal .probabilities {
+    margin: 25px 0;
+}
+
+/* Modal scrollbar */
+
+.modal::-webkit-scrollbar {
+    width: 7px;
+}
+
+.modal::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.modal::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #555;
+}
+
+.modal::-webkit-scrollbar-thumb:hover {
+    background: #777;
+}
+
+/* ========================================
+   13. RESPONSIVE
+======================================== */
+
+@media (max-width: 750px) {
+    .sidebar {
+        display: none;
+    }
+
+    .topbar {
+        padding: 0 18px;
+    }
+
+    .chat-area {
+        padding: 35px 20px;
+    }
+
+    .welcome {
+        margin-top: 10vh;
+    }
+
+    .welcome h1 {
+        font-size: 24px;
+    }
+
+    .message-content {
+        max-width: 90%;
+    }
+
+    .modal {
+        padding: 28px 22px;
+    }
+}
+
+@media (max-width: 420px) {
+    .model-name {
+        display: none;
+    }
+
+    .welcome h1 {
+        font-size: 21px;
+    }
+
+    .modal-overlay {
+        padding: 10px;
+    }
+
+    .modal {
+        max-height: calc(100vh - 20px);
+        max-height: calc(100dvh - 20px);
+        padding: 25px 18px;
+    }
+}

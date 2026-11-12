@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RafiAI - Sentiment Analysis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="app-layout">
+
+        <aside class="sidebar">
+
+            <div class="sidebar-header">
+                <h2>RafiAI</h2>
+                <span class="ai-label">LOCAL AI</span>
+            </div>
+
+            <a href="/" class="new-chat">
+                <span>+</span>
+                New analysis
+            </a>
+
+            <div class="sidebar-section">
+                <p class="sidebar-heading">YOUR AI</p>
+
+                <div class="sidebar-item active">
+                    <span>◉</span>
+                    Sentiment Analysis
+                </div>
+
+                <button type="button" class="sidebar-item train-button" onclick="openFeedbackModal()">
+                    <span>🧠</span>
+                    Train AI
+                </button>
+            </div>
+
+            <div class="sidebar-bottom">
+                <div class="profile">
+                    <div class="profile-avatar">R</div>
+                    <div>
+                        <strong>RafiAI</strong>
+                        <small>Local Assistant</small>
+                    </div>
+                </div>
+            </div>
+
+        </aside>
+
+        <main class="main-content">
+
+            <header class="topbar">
+                <span>
+                    RafiAI
+                    <span class="model-name">Sentiment Model</span>
+                </span>
+
+                <span class="status">
+                    <span class="status-dot"></span>
+                    Local
+                </span>
+            </header>
+
+            <section class="chat-area">
+
+                <div class="welcome">
+
+                    <div class="welcome-icon">✦</div>
+
+                    <h1>Welcome to RafiAI</h1>
+
+                    <p>
+                        Open Train AI to analyse a sentence and provide feedback.
+                    </p>
+
+                    {% if error %}
+                    <div class="error-message">{{ error }}</div>
+                    {% endif %}
+
+                    {% if feedback_saved %}
+                    <div class="success-message">
+                        Your feedback has been saved successfully.
+                    </div>
+                    {% endif %}
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <!-- Train AI Modal -->
+
+    <div class="modal-overlay" id="feedback-modal">
+
+        <div class="modal">
+
+            <button type="button" class="modal-close" onclick="closeFeedbackModal()">
+                &times;
+            </button>
+
+            <div class="modal-icon">🧠</div>
+
+            <h2>Train RafiAI</h2>
+
+            <p class="modal-description">
+                Analyse a sentence and help RafiAI improve its knowledge.
+            </p>
+
+            <!-- Sentence Input -->
+
+            <form id="prediction-form">
+
+                <label for="prediction-text">Sentence</label>
+
+                <textarea id="prediction-text" name="text" placeholder="Enter a sentence..." rows="4"
+                    required></textarea>
+
+                <button type="submit" class="feedback-button" id="predict-button">
+                    Predict
+                </button>
+
+            </form>
+
+            <div id="prediction-error" class="error-message" hidden></div>
+
+            <!-- Prediction Results -->
+
+            <div id="prediction-results" hidden>
+
+                <div id="prediction-status" class="result-card">
+
+                    <span class="card-label">PREDICTED SENTIMENT</span>
+
+                    <div class="sentiment-result">
+                        <span id="sentiment-indicator" class="sentiment-indicator"></span>
+                        <strong id="predicted-sentiment"></strong>
+                    </div>
+
+                </div>
+
+                <div class="probabilities" id="probabilities-section">
+
+                    <h3>Estimated probabilities</h3>
+
+                    <div id="probability-list"></div>
+
+                </div>
+
+                <!-- Feedback -->
+
+                <form id="feedback-form">
+
+                    <label for="correct-label" id="feedback-label">
+                        What is the correct sentiment?
+                    </label>
+
+                    <select id="correct-label" name="correct_label" required>
+                        <option value="" disabled selected>Select a sentiment</option>
+                        <option value="positive">Positive</option>
+                        <option value="negative">Negative</option>
+                    </select>
+
+                    <button type="submit" class="feedback-button modal-submit">
+                        Submit Feedback
+                    </button>
+
+                </form>
+
+                <div id="feedback-message" class="success-message" hidden></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        const modal = document.getElementById("feedback-modal");
+        const predictionForm = document.getElementById("prediction-form");
+        const feedbackForm = document.getElementById("feedback-form");
+
+        const predictionResults = document.getElementById("prediction-results");
+        const predictionError = document.getElementById("prediction-error");
+        const feedbackMessage = document.getElementById("feedback-message");
+
+        const predictionStatus = document.getElementById("prediction-status");
+        const probabilitiesSection = document.getElementById("probabilities-section");
+
+        function openFeedbackModal() {
+            resetModal();
+            modal.classList.add("active");
+        }
+
+        function closeFeedbackModal() {
+            modal.classList.remove("active");
+        }
+
+        function resetModal() {
+
+            predictionForm.reset();
+            feedbackForm.reset();
+
+            predictionResults.hidden = true;
+            predictionError.hidden = true;
+            feedbackMessage.hidden = true;
+
+            document.getElementById("probability-list").innerHTML = "";
+
+            predictionStatus.hidden = false;
+            probabilitiesSection.hidden = false;
+
+        }
+
+        function displayPrediction(data) {
+
+            const prediction = data.prediction.toLowerCase();
+
+            predictionStatus.hidden = false;
+            probabilitiesSection.hidden = false;
+
+            document.getElementById("predicted-sentiment").textContent =
+                prediction.toUpperCase();
+
+            const indicator = document.getElementById("sentiment-indicator");
+
+            indicator.className = "sentiment-indicator " + prediction;
+
+            const probabilityList = document.getElementById("probability-list");
+
+            probabilityList.innerHTML = "";
+
+            for (const [sentiment, probability] of Object.entries(data.probabilities)) {
+
+                const percentage = (probability * 100).toFixed(2);
+
+                const item = document.createElement("div");
+                item.className = "probability";
+
+                const label = document.createElement("div");
+                label.className = "probability-label";
+
+                const sentimentName = document.createElement("span");
+                sentimentName.textContent =
+                    sentiment.charAt(0).toUpperCase() + sentiment.slice(1);
+
+                const percentageText = document.createElement("span");
+                percentageText.textContent = percentage + "%";
+
+                label.append(sentimentName, percentageText);
+
+                const progress = document.createElement("div");
+                progress.className = "progress";
+
+                const bar = document.createElement("div");
+                bar.className = "progress-bar";
+                bar.style.setProperty("--progress", percentage + "%");
+
+                progress.appendChild(bar);
+                item.append(label, progress);
+
+                probabilityList.appendChild(item);
+            }
+
+            document.getElementById("feedback-label").textContent =
+                "Is this prediction correct? Select the correct sentiment:";
+
+            predictionResults.hidden = false;
+        }
+
+        function displayUnknownSentence() {
+
+            predictionStatus.hidden = true;
+            probabilitiesSection.hidden = true;
+
+            document.getElementById("feedback-label").textContent =
+                "RafiAI does not have enough information to analyse this sentence. What is its correct sentiment?";
+
+            predictionResults.hidden = false;
+        }
+
+        predictionForm.addEventListener("submit", async function (event) {
+
+            event.preventDefault();
+
+            predictionResults.hidden = true;
+            predictionError.hidden = true;
+            feedbackMessage.hidden = true;
+
+            const button = document.getElementById("predict-button");
+
+            button.disabled = true;
+            button.textContent = "Analysing...";
+
+            try {
+
+                const response = await fetch("{{ url_for('predict_feedback') }}", {
+                    method: "POST",
+                    body: new FormData(predictionForm)
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || "Prediction failed.");
+                }
+
+                if (data.unknown) {
+                    displayUnknownSentence();
+                } else {
+                    displayPrediction(data);
+                }
+
+            } catch (error) {
+
+                predictionError.textContent = error.message;
+                predictionError.hidden = false;
+
+            } finally {
+
+                button.disabled = false;
+                button.textContent = "Predict";
+
+            }
+
+        });
+
+        feedbackForm.addEventListener("submit", async function (event) {
+
+            event.preventDefault();
+
+            const text = document.getElementById("prediction-text").value.trim();
+            const correctLabel = document.getElementById("correct-label").value;
+
+            const formData = new FormData();
+
+            formData.append("text", text);
+            formData.append("correct_label", correctLabel);
+
+            const button = feedbackForm.querySelector("button");
+
+            button.disabled = true;
+            button.textContent = "Saving...";
+
+            try {
+
+                const response = await fetch("{{ url_for('feedback') }}", {
+                    method: "POST",
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || "Could not save feedback.");
+                }
+
+                feedbackMessage.textContent =
+                    "Your feedback has been saved successfully.";
+
+                feedbackMessage.hidden = false;
+
+                feedbackForm.reset();
+
+            } catch (error) {
+
+                feedbackMessage.textContent = error.message;
+                feedbackMessage.hidden = false;
+
+            } finally {
+
+                button.disabled = false;
+                button.textContent = "Submit Feedback";
+
+            }
+
+        });
+
+        modal.addEventListener("click", function (event) {
+            if (event.target === modal) {
+                closeFeedbackModal();
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>

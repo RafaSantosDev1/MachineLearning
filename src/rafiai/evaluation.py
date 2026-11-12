@@ -6,9 +6,14 @@ from rafiai.train import (
     create_logistic_regression_model
 )
 
+from rafiai.preprocessing import (
+    clean_texts,
+    create_vectorizer,
+    transform_texts
+)
+
 from sklearn.metrics import (
     accuracy_score,
-    classification_report,
     confusion_matrix,
     precision_score,
     recall_score,
@@ -24,14 +29,9 @@ from sklearn.model_selection import (
 
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import FunctionTransformer
-from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
 
-from rafiai.preprocessing import (
-    clean_texts,
-    create_vectorizer,
-    transform_texts
-)
+
 def create_pipeline(classifier):
     """
     Creates a machine learning pipeline.
@@ -39,11 +39,7 @@ def create_pipeline(classifier):
 
     return Pipeline([
         ("cleaning", FunctionTransformer(clean_texts, validate=False)),
-        ("tfidf", TfidfVectorizer(
-            lowercase=False,
-            token_pattern=r"(?u)\b\w+\b",
-            ngram_range=(1, 2)
-        )),
+        ("tfidf", create_vectorizer()),
         ("classifier", classifier)
     ])
 
@@ -110,7 +106,10 @@ def evaluate_model(model, testing_matrix, testing_labels, testing_texts):
     print(f"Recall:    {recall:.2%}")
     print(f"F1-score:  {f1:.2%}")
 
-    print(f"\nIncorrect predictions: {incorrect_count}/{len(testing_labels)}")
+    print(
+        f"\nIncorrect predictions: "
+        f"{incorrect_count}/{len(testing_labels)}"
+    )
 
     return predictions
 
@@ -281,7 +280,7 @@ def grid_search_naive_bayes(texts, labels):
             0.01,
             0.02,
             0.03,
-            0.05    
+            0.05
         ]
     }
 
@@ -308,7 +307,6 @@ def grid_search_naive_bayes(texts, labels):
     return best_model, best_vectorizer
 
 
-
 def analyze_vocabulary(vectorizer, testing_texts, testing_labels, predictions):
     """
     Analyzes incorrectly classified sentences and their vocabulary.
@@ -332,8 +330,8 @@ def analyze_vocabulary(vectorizer, testing_texts, testing_labels, predictions):
         if actual != predicted:
             errors += 1
 
-            cleaned_text = clean_texts([text])[0]
-            features = analyzer(cleaned_text)
+            processed_text = clean_texts([text])[0]
+            features = analyzer(processed_text)
 
             recognized = [
                 word for word in features
@@ -360,17 +358,16 @@ def analyze_vocabulary(vectorizer, testing_texts, testing_labels, predictions):
 def analyze_sentiment_vocabulary(texts, labels):
     """
     Analyzes the most frequent words in each sentiment class.
-    This function can be used when detailed analysis is needed.
     """
-
-    from rafiai.preprocessing import clean_text
 
     positive_words = Counter()
     negative_words = Counter()
 
-    for text, label in zip(texts, labels):
+    processed_texts = clean_texts(texts)
 
-        words = clean_text(text).split()
+    for text, label in zip(processed_texts, labels):
+
+        words = text.split()
 
         if label == "positive":
             positive_words.update(words)
@@ -382,6 +379,7 @@ def analyze_sentiment_vocabulary(texts, labels):
         "positive": positive_words.most_common(20),
         "negative": negative_words.most_common(20)
     }
+
 
 def analyze_confusion_and_confidence(
     model,
@@ -493,8 +491,8 @@ def analyze_feature_contributions(
 
         errors += 1
 
-        cleaned_text = clean_texts([text])[0]
-        text_matrix = vectorizer.transform([cleaned_text])
+        processed_text = clean_texts([text])[0]
+        text_matrix = vectorizer.transform([processed_text])
 
         feature_indices = text_matrix.nonzero()[1]
         feature_values = text_matrix.data
@@ -551,8 +549,6 @@ def analyze_feature_contributions(
     print(f"\nTotal analyzed errors: {errors}")
 
 
-
-
 def analyze_feature_distribution(
     training_texts,
     training_labels,
@@ -575,11 +571,11 @@ def analyze_feature_distribution(
 
     class_counts = Counter(training_labels)
 
-    for text, label in zip(training_texts, training_labels):
+    processed_texts = clean_texts(training_texts)
 
-        text_features = set(
-            analyzer(clean_texts([text])[0])
-        )
+    for text, label in zip(processed_texts, training_labels):
+
+        text_features = set(analyzer(text))
 
         for feature in features:
 
@@ -617,8 +613,6 @@ def analyze_feature_distribution(
                     print(f" - {sentence}")
 
 
-
-
 def evaluate_validation(
     model,
     vectorizer,
@@ -642,18 +636,21 @@ def evaluate_validation(
     predictions = model.predict(validation_matrix)
 
     accuracy = accuracy_score(validation_labels, predictions)
+
     precision = precision_score(
         validation_labels,
         predictions,
         average="macro",
         zero_division=0
     )
+
     recall = recall_score(
         validation_labels,
         predictions,
         average="macro",
         zero_division=0
     )
+
     f1 = f1_score(
         validation_labels,
         predictions,
@@ -684,6 +681,7 @@ def evaluate_validation(
         validation_labels,
         predictions
     ):
+
         if expected != predicted:
             print(f"\nSentence: {text}")
             print(f"Expected: {expected}")
@@ -715,6 +713,3 @@ def evaluate_validation(
         )
 
     return predictions
-
-
-   

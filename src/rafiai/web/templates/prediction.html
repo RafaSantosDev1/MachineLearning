@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RafiAI - Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="app-layout">
+
+        <aside class="sidebar">
+
+            <div class="sidebar-header">
+                <h2>RafiAI</h2>
+                <span class="ai-label">LOCAL AI</span>
+            </div>
+
+            <a href="/" class="new-chat">
+                <span>+</span>
+                New analysis
+            </a>
+
+            <div class="sidebar-section">
+                <p class="sidebar-heading">YOUR AI</p>
+
+                <div class="sidebar-item active">
+                    <span>◉</span>
+                    Sentiment Analysis
+                </div>
+
+                <button type="button" class="sidebar-item train-button"
+                    onclick="document.getElementById('feedback-modal').classList.add('active')">
+                    <span>🧠</span>
+                    Train AI
+                </button>
+            </div>
+
+            <div class="sidebar-bottom">
+                <div class="profile">
+                    <div class="profile-avatar">R</div>
+
+                    <div>
+                        <strong>RafiAI</strong>
+                        <small>Local Assistant</small>
+                    </div>
+                </div>
+            </div>
+
+        </aside>
+
+        <main class="main-content">
+
+            <header class="topbar">
+                <span>
+                    RafiAI
+                    <span class="model-name">Sentiment Model</span>
+                </span>
+
+                <span class="status">
+                    <span class="status-dot"></span>
+                    Local
+                </span>
+            </header>
+
+            <section class="chat-area conversation">
+
+                <!-- User message -->
+                <div class="user-message">
+                    <div class="user-avatar">U</div>
+
+                    <div class="message-content">
+                        {{ text }}
+                    </div>
+                </div>
+
+                <!-- RafiAI response -->
+                <div class="assistant-message">
+
+                    <div class="assistant-avatar">R</div>
+
+                    <div class="assistant-content">
+
+                        <h2>Sentiment Analysis</h2>
+
+                        <p class="response-intro">
+                            Here is my analysis of your sentence.
+                        </p>
+
+                        <!-- Prediction -->
+                        <div class="result-card">
+
+                            <span class="card-label">
+                                PREDICTED SENTIMENT
+                            </span>
+
+                            <div class="sentiment-result">
+
+                                <span class="sentiment-indicator
+                                    {% if prediction|string|lower == 'positive' %}
+                                        positive
+                                    {% else %}
+                                        negative
+                                    {% endif %}">
+                                </span>
+
+                                <strong>{{ prediction | upper }}</strong>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Probabilities -->
+                        <div class="probabilities">
+
+                            <h3>Estimated probabilities</h3>
+
+                            {% for sentiment, probability in probabilities.items() %}
+
+                            <div class="probability">
+
+                                <div class="probability-label">
+                                    <span>{{ sentiment | capitalize }}</span>
+                                    <span>{{ "%.2f"|format(probability * 100) }}%</span>
+                                </div>
+
+                                <div class="progress">
+                                    <div class="progress-bar" style="--progress: {{ probability * 100 }}%;">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            {% endfor %}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <!-- Feedback Modal -->
+
+    <div class="modal-overlay" id="feedback-modal">
+
+        <div class="modal">
+
+            <button type="button" class="modal-close"
+                onclick="document.getElementById('feedback-modal').classList.remove('active')">
+                &times;
+            </button>
+
+            <div class="modal-icon">🧠</div>
+
+            <h2>Train RafiAI</h2>
+
+            <p class="modal-description">
+                Help RafiAI learn by providing a sentence and its correct sentiment.
+            </p>
+
+            <form action="{{ url_for('feedback') }}" method="POST">
+
+                <label for="feedback-text">Sentence</label>
+
+                <textarea id="feedback-text" name="text" placeholder="Enter a sentence..." rows="4" required></textarea>
+
+                <label for="correct-label">Correct sentiment</label>
+
+                <select id="correct-label" name="correct_label" required>
+                    <option value="" disabled selected>Select a sentiment</option>
+                    <option value="positive">Positive</option>
+                    <option value="negative">Negative</option>
+                </select>
+
+                <button type="submit" class="feedback-button modal-submit">
+                    Submit Feedback
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
