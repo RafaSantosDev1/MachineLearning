@@ -734,4 +734,131 @@ button {
         max-height: calc(100dvh - 20px);
         padding: 25px 18px;
     }
+
+
+    /* ========================================
+   14. ADMIN PANEL
+======================================== */
+
+    .sidebar-item:hover {
+        background: var(--surface-hover);
+        color: white;
+    }
+
+    #admin-login-form input {
+        width: 100%;
+        margin-top: 9px;
+        padding: 14px;
+        border: 1px solid #494949;
+        border-radius: 10px;
+        outline: none;
+        background: #171717;
+        color: white;
+        font-size: 14px;
+    }
+
+    #admin-login-form input:focus {
+        border-color: var(--primary);
+    }
+
+    #admin-login-form input::placeholder {
+        color: #777;
+    }
+
+    #admin-panel .result-card {
+        margin: 25px 0;
+    }
+
+    #admin-panel .result-card p {
+        margin-top: 10px;
+        color: var(--muted);
+        font-size: 13px;
+    }
+
+    #admin-panel #pending-count {
+        font-size: 28px;
+    }
+
+    #admin-panel .feedback-button {
+        margin-top: 12px;
+    }
+
+    #admin-panel .success-message,
+    #admin-error {
+        overflow-wrap: anywhere;
+    }
+
+    #admin-panel .modal-submit {
+        background: #383838;
+    }
+
+    #admin-panel .modal-submit:hover {
+        background: #484848;
+    }
+
+    #development-output {
+        margin-top: 15px;
+        max-height: 300px;
+        overflow-y: auto;
+    }
+
+    #development-log {
+        margin-top: 12px;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        font-size: 12px;
+        line-height: 1.6;
+        color: var(--muted);
+    }
+
+    /* ADMIN PANEL READABILITY */
+
+    #admin-panel .result-card {
+        padding: 20px;
+        margin-bottom: 16px;
+        background: #2b2b2b;
+        color: #ffffff;
+    }
+
+    #admin-panel .card-label {
+        display: block;
+        color: #b8b8b8;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        margin-bottom: 12px;
+    }
+
+    #admin-panel .sentiment-result strong {
+        color: #ffffff;
+        font-size: 32px;
+    }
+
+    #admin-panel .result-card p {
+        color: #c5c5c5;
+        margin-top: 8px;
+        font-size: 13px;
+    }
+
+    #admin-panel button {
+        margin-top: 10px;
+    }
+
+    #development-output {
+        margin-top: 16px;
+        max-height: 350px;
+        overflow-y: auto;
+    }
+
+    #development-log {
+        color: #eeeeee;
+        background: #181818;
+        padding: 14px;
+        border-radius: 8px;
+        margin-top: 12px;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        font-size: 12px;
+        line-height: 1.6;
+    }
 }

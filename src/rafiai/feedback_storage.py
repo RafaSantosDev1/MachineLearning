@@ -1,3 +1,4 @@
+
 import sqlite3
 from pathlib import Path
 from datetime import datetime, timezone
@@ -56,3 +57,31 @@ def save_feedback(text, predicted_label, correct_label):
             is_correct,
             created_at
         ))
+
+
+def get_pending_feedback():
+    initialize_database()
+
+    database_path = get_database_path()
+
+    with sqlite3.connect(database_path) as connection:
+        connection.row_factory = sqlite3.Row
+
+        rows = connection.execute("""
+            SELECT id, text, correct_label
+            FROM feedback
+            WHERE LOWER(TRIM(correct_label)) IN ('positive', 'negative')
+              AND TRIM(text) != ''
+            ORDER BY id
+        """).fetchall()
+
+        return [dict(row) for row in rows]
+
+
+def clear_feedback():
+    initialize_database()
+
+    database_path = get_database_path()
+
+    with sqlite3.connect(database_path) as connection:
+        connection.execute("DELETE FROM feedback")

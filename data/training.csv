@@ -1,5 +1,4 @@
-
-text,label
+﻿text,label
 " I love programming","positive"
 "Python is fantastic","positive"
 "I really like technology","positive"
@@ -531,3 +530,14 @@ text,label
 "The latest update introduced new problems and errors",negative
 "The solution failed to solve the original problem",negative
 "Several problems appeared after the latest release",negative
+"I am extremely happy with this application because it is fast, reliable, and makes my daily tasks much easier.",positive
+"I regret choosing this software","negative"
+"benfica","positive"
+"I absolutely love the new features of this application.","positive"
+"I do not love Porto","negative"
+"I know a lot of things","positive"
+"porto","negative"
+"Porto is bad","negative"
+"I dont know this","negative"
+"I absolutely love how easy this application is to use.","positive"
+"Sporting","negative"

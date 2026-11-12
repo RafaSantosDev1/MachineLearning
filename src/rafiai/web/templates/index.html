@@ -35,6 +35,11 @@
                     <span>🧠</span>
                     Train AI
                 </button>
+
+                <button type="button" class="sidebar-item" onclick="openAdminModal()">
+                    <span>🔒</span>
+                    Admin
+                </button>
             </div>
 
             <div class="sidebar-bottom">
@@ -93,6 +98,7 @@
 
     </div>
 
+
     <!-- Train AI Modal -->
 
     <div class="modal-overlay" id="feedback-modal">
@@ -111,8 +117,6 @@
                 Analyse a sentence and help RafiAI improve its knowledge.
             </p>
 
-            <!-- Sentence Input -->
-
             <form id="prediction-form">
 
                 <label for="prediction-text">Sentence</label>
@@ -127,8 +131,6 @@
             </form>
 
             <div id="prediction-error" class="error-message" hidden></div>
-
-            <!-- Prediction Results -->
 
             <div id="prediction-results" hidden>
 
@@ -150,8 +152,6 @@
                     <div id="probability-list"></div>
 
                 </div>
-
-                <!-- Feedback -->
 
                 <form id="feedback-form">
 
@@ -179,7 +179,93 @@
 
     </div>
 
+
+    <!-- Admin Modal -->
+
+    <div class="modal-overlay" id="admin-modal">
+
+        <div class="modal">
+
+            <button type="button" class="modal-close" onclick="closeAdminModal()">
+                &times;
+            </button>
+
+            <div class="modal-icon">🔐</div>
+
+            <h2>RafiAI Administration</h2>
+
+            <p class="modal-description">
+                Restricted access to knowledge management.
+            </p>
+
+            <!-- Admin Login -->
+
+            <form id="admin-login-form">
+
+                <label for="admin-username">Username</label>
+
+                <input type="text" id="admin-username" name="username" placeholder="Enter username" required>
+
+                <label for="admin-password">Password</label>
+
+                <input type="password" id="admin-password" name="password" placeholder="Enter password" required>
+
+                <button type="submit" class="feedback-button">
+                    Login
+                </button>
+
+            </form>
+
+            <div id="admin-error" class="error-message" hidden></div>
+
+            <!-- Admin Panel -->
+
+            <div id="admin-panel" hidden>
+
+                <div class="result-card">
+
+                    <span class="card-label">PENDING KNOWLEDGE</span>
+
+                    <div class="sentiment-result">
+                        <strong id="pending-count">0</strong>
+                    </div>
+
+                    <p>Examples waiting to be imported</p>
+
+                </div>
+
+                <button type="button" class="feedback-button" id="import-button" onclick="importKnowledge()">
+                    Import Knowledge
+                </button>
+
+                <button type="button" class="feedback-button" id="development-button" onclick="runDevelopment()">
+                    Run Development Mode
+                </button>
+
+                <div id="admin-message" class="success-message" hidden></div>
+
+                <div id="development-output" class="result-card" hidden>
+
+                    <span class="card-label">DEVELOPMENT OUTPUT</span>
+
+                    <pre id="development-log"></pre>
+
+                </div>
+
+                <button type="button" class="feedback-button modal-submit" onclick="adminLogout()">
+                    Logout
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
     <script>
+
+        // TRAIN AI
 
         const modal = document.getElementById("feedback-modal");
         const predictionForm = document.getElementById("prediction-form");
@@ -192,14 +278,17 @@
         const predictionStatus = document.getElementById("prediction-status");
         const probabilitiesSection = document.getElementById("probabilities-section");
 
+
         function openFeedbackModal() {
             resetModal();
             modal.classList.add("active");
         }
 
+
         function closeFeedbackModal() {
             modal.classList.remove("active");
         }
+
 
         function resetModal() {
 
@@ -214,8 +303,8 @@
 
             predictionStatus.hidden = false;
             probabilitiesSection.hidden = false;
-
         }
+
 
         function displayPrediction(data) {
 
@@ -273,6 +362,7 @@
             predictionResults.hidden = false;
         }
 
+
         function displayUnknownSentence() {
 
             predictionStatus.hidden = true;
@@ -283,6 +373,7 @@
 
             predictionResults.hidden = false;
         }
+
 
         predictionForm.addEventListener("submit", async function (event) {
 
@@ -325,10 +416,10 @@
 
                 button.disabled = false;
                 button.textContent = "Predict";
-
             }
 
         });
+
 
         feedbackForm.addEventListener("submit", async function (event) {
 
@@ -376,14 +467,243 @@
 
                 button.disabled = false;
                 button.textContent = "Submit Feedback";
-
             }
 
         });
 
+
+        // ADMIN PANEL
+
+        const adminModal = document.getElementById("admin-modal");
+        const adminLoginForm = document.getElementById("admin-login-form");
+        const adminPanel = document.getElementById("admin-panel");
+        const adminError = document.getElementById("admin-error");
+        const adminMessage = document.getElementById("admin-message");
+
+
+        function openAdminModal() {
+
+            adminLoginForm.reset();
+
+            adminPanel.hidden = true;
+            adminLoginForm.hidden = false;
+
+            adminError.hidden = true;
+            adminMessage.hidden = true;
+
+            adminModal.classList.add("active");
+        }
+
+
+        function closeAdminModal() {
+            adminModal.classList.remove("active");
+        }
+
+
+        adminLoginForm.addEventListener("submit", async function (event) {
+
+            event.preventDefault();
+
+            adminError.hidden = true;
+
+            try {
+
+                const response = await fetch("/admin/login", {
+                    method: "POST",
+                    body: new FormData(adminLoginForm)
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || "Login failed.");
+                }
+
+                adminLoginForm.hidden = true;
+                adminPanel.hidden = false;
+
+                document.getElementById("pending-count").textContent =
+                    data.pending_count;
+
+            } catch (error) {
+
+                adminError.textContent = error.message;
+                adminError.hidden = false;
+            }
+
+        });
+
+
+        // IMPORT KNOWLEDGE
+
+        async function importKnowledge() {
+
+            const button = document.getElementById("import-button");
+
+            button.disabled = true;
+            button.textContent = "Importing...";
+
+            adminMessage.hidden = true;
+            adminError.hidden = true;
+
+            try {
+
+                const response = await fetch("/admin/import", {
+                    method: "POST"
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || "Import failed.");
+                }
+
+                adminMessage.textContent =
+                    `${data.message} Imported: ${data.imported_count}. Already present: ${data.skipped_count}.`;
+
+                adminMessage.hidden = false;
+
+                document.getElementById("pending-count").textContent =
+                    data.pending_count ?? 0;
+
+            } catch (error) {
+
+                adminError.textContent = error.message;
+                adminError.hidden = false;
+
+            } finally {
+
+                button.disabled = false;
+                button.textContent = "Import Knowledge";
+            }
+
+        }
+
+
+        // DEVELOPMENT MODE
+
+        async function runDevelopment() {
+
+            const button = document.getElementById("development-button");
+            const outputContainer = document.getElementById("development-output");
+            const log = document.getElementById("development-log");
+
+            button.disabled = true;
+            button.textContent = "Starting...";
+
+            adminError.hidden = true;
+            adminMessage.hidden = true;
+
+            outputContainer.hidden = false;
+            log.textContent = "Starting Development Mode...\n";
+
+            try {
+
+                const response = await fetch("/admin/development", {
+                    method: "POST"
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || "Could not start Development Mode.");
+                }
+
+                button.textContent = "Training...";
+
+                await pollDevelopmentStatus();
+
+            } catch (error) {
+
+                adminError.textContent = error.message;
+                adminError.hidden = false;
+
+                button.disabled = false;
+                button.textContent = "Run Development Mode";
+            }
+
+        }
+
+
+        async function pollDevelopmentStatus() {
+
+            const button = document.getElementById("development-button");
+            const log = document.getElementById("development-log");
+
+            try {
+
+                const response = await fetch("/admin/development/status");
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || "Could not retrieve training status.");
+                }
+
+                log.textContent = data.output || "Development Mode is running...";
+
+                if (data.running) {
+                    setTimeout(pollDevelopmentStatus, 1000);
+                    return;
+                }
+
+                button.disabled = false;
+                button.textContent = "Run Development Mode";
+
+                if (data.error) {
+
+                    adminError.textContent = "Training failed: " + data.error;
+                    adminError.hidden = false;
+
+                } else {
+
+                    adminMessage.textContent =
+                        "Development Mode completed successfully.";
+
+                    adminMessage.hidden = false;
+                }
+
+            } catch (error) {
+
+                button.disabled = false;
+                button.textContent = "Run Development Mode";
+
+                adminError.textContent = error.message;
+                adminError.hidden = false;
+            }
+
+        }
+
+
+        // ADMIN LOGOUT
+
+        async function adminLogout() {
+
+            await fetch("/admin/logout", {
+                method: "POST"
+            });
+
+            adminPanel.hidden = true;
+            adminLoginForm.hidden = false;
+
+            adminLoginForm.reset();
+
+            closeAdminModal();
+        }
+
+
+        // CLOSE MODALS WHEN CLICKING OUTSIDE
+
         modal.addEventListener("click", function (event) {
             if (event.target === modal) {
                 closeFeedbackModal();
+            }
+        });
+
+
+        adminModal.addEventListener("click", function (event) {
+            if (event.target === adminModal) {
+                closeAdminModal();
             }
         });
 
