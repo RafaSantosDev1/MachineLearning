@@ -7,20 +7,42 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 
 
 
+
 def clean_text(text):
     """
-    Cleans and normalizes a text and identifies negations.
+    Cleans and normalizes text, including common negation expressions.
     """
 
     text = text.lower()
 
-    # Normalize common negation expressions
+    # Normalize contractions
     text = re.sub(r"\bdon't\b", "do not", text)
     text = re.sub(r"\bdoesn't\b", "does not", text)
     text = re.sub(r"\bdidn't\b", "did not", text)
     text = re.sub(r"\bcan't\b", "cannot", text)
     text = re.sub(r"\bwon't\b", "will not", text)
+    text = re.sub(r"\bcouldn't\b", "could not", text)
+    text = re.sub(r"\bwouldn't\b", "would not", text)
+    text = re.sub(r"\bshouldn't\b", "should not", text)
+
+    # Normalize cannot
+    text = re.sub(r"\bcannot\b", "can not", text)
+
+    # Normalize never
     text = re.sub(r"\bnever\b", "not", text)
+
+    # Identify absence of common problems
+    text = re.sub(
+        r"\bno\s+(difficulty|difficulties|problem|problems|issue|issues|error|errors)\b",
+        r"NOT_\1",
+        text
+    )
+
+    text = re.sub(
+        r"\bwithout\s+(?:any\s+)?(difficulty|difficulties|problem|problems|issue|issues|error|errors)\b",
+        r"NOT_\1",
+        text
+    )
 
     # Mark the word following a negation
     text = re.sub(
@@ -29,11 +51,13 @@ def clean_text(text):
         text
     )
 
+    # Remove unnecessary punctuation
     text = re.sub(r"[^\w\s']", "", text)
+
+    # Normalize spaces
     text = re.sub(r"\s+", " ", text)
 
     return text.strip()
-
 
 
 def clean_texts(texts):

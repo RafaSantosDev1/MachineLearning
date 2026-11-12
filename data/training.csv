@@ -424,7 +424,6 @@ text,label
 "The software is difficult to configure","negative"
 "Support was unhelpful and slow","negative"
 "The latest release introduced serious problems","negative"
-
 "The project was completed ahead of schedule","positive"
 "The task was completed successfully","positive"
 "This application is extremely helpful","positive"
@@ -458,3 +457,43 @@ text,label
 "I enjoy using this program",positive
 "These changes improved the experience",positive
 "I am happy with these changes",positive
+"I am delighted with how fast this tool works",positive
+"The dashboard is intuitive and responsive",positive
+"Using this software makes my work easier",positive
+"The results exceeded my expectations",positive
+"I am satisfied with the improvements",positive
+"This application has a clean and practical design",positive
+"The service was delivered on time",positive
+"I successfully completed everything without problems",positive
+"The instructions made the process straightforward",positive
+"I appreciate how reliable this system is",positive
+"The new functionality is extremely useful",positive
+"This product has saved me hours of work",positive
+"The support team resolved my issue quickly",positive
+"I am pleased with the quality of the service",positive
+"The program handles my tasks efficiently",positive
+"I found the experience enjoyable and productive",positive
+"Everything was completed without any difficulties",positive
+"The update made the software more stable",positive
+"This is one of the most useful tools I have tried",positive
+"The application performs consistently well",positive
+"The interface is confusing and difficult to navigate",negative
+"I am disappointed with the latest release",negative
+"The software consumes too many resources",negative
+"The service was delayed without any explanation",negative
+"I cannot rely on this application",negative
+"The instructions made the process more confusing",negative
+"Every attempt resulted in another error",negative
+"The product is poorly designed and frustrating",negative
+"I lost important work because the program crashed",negative
+"The system is slow and unreliable",negative
+"I regret spending money on this service",negative
+"The update removed features that I needed",negative
+"Nothing improved after the latest changes",negative
+"The application is difficult to maintain",negative
+"I was unable to complete my work successfully",negative
+"The response from support was unhelpful",negative
+"This tool creates unnecessary complications",negative
+"The results were far below acceptable standards",negative
+"I experienced repeated failures during installation",negative
+"The software does not meet my needs",negative
