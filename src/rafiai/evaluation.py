@@ -1,12 +1,21 @@
 
 from collections import Counter
 
+from rafiai.train import (
+    create_model,
+    create_logistic_regression_model
+)
+
 from sklearn.metrics import (
     accuracy_score,
     classification_report,
-    confusion_matrix
+    confusion_matrix,
+    precision_score,
+    recall_score,
+    f1_score,
+    make_scorer
 )
-from sklearn.model_selection import StratifiedKFold, cross_validate
+from sklearn.model_selection import StratifiedKFold, cross_validate, GridSearchCV
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import FunctionTransformer
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -86,9 +95,21 @@ def cross_validate_model(texts, labels):
 
     scoring = {
         "accuracy": "accuracy",
-        "precision": "precision_macro",
-        "recall": "recall_macro",
-        "f1": "f1_macro"
+        "precision": make_scorer(
+            precision_score,
+            average="macro",
+            zero_division=0
+        ),
+        "recall": make_scorer(
+            recall_score,
+            average="macro",
+            zero_division=0
+        ),
+        "f1": make_scorer(
+            f1_score,
+            average="macro",
+            zero_division=0
+        )
     }
 
     results = cross_validate(
@@ -137,3 +158,166 @@ def evaluate_training_performance(model, training_matrix, training_labels):
     print("================================")
 
     print(f"\nTraining Accuracy: {accuracy:.2%}")
+
+
+def compare_models(texts, labels):
+    """
+    Compares Naive Bayes and Logistic Regression
+    using the same Cross-Validation folds.
+    """
+
+    class_counts = Counter(labels)
+    min_class_count = min(class_counts.values())
+
+    if min_class_count < 2:
+        print("\nNot enough examples for model comparison.")
+        return
+
+    n_splits = min(5, min_class_count)
+
+    cross_validation = StratifiedKFold(
+        n_splits=n_splits,
+        shuffle=True,
+        random_state=42
+    )
+
+    models = {
+        "Naive Bayes": create_model(),
+        "Logistic Regression": create_logistic_regression_model()
+    }
+
+    scoring = {
+        "accuracy": "accuracy",
+        "precision": make_scorer(
+            precision_score,
+            average="macro",
+            zero_division=0
+        ),
+        "recall": make_scorer(
+            recall_score,
+            average="macro",
+            zero_division=0
+        ),
+        "f1": make_scorer(
+            f1_score,
+            average="macro",
+            zero_division=0
+        )
+    }
+
+    print("\n================================")
+    print("       RafiAI - Model Comparison")
+    print("================================")
+
+    for model_name, classifier in models.items():
+
+        pipeline = Pipeline([
+            ("cleaning", FunctionTransformer(clean_texts, validate=False)),
+            ("tfidf", TfidfVectorizer(
+                token_pattern=r"(?u)\b\w+\b",
+                ngram_range=(1, 2)
+            )),
+            ("classifier", classifier)
+        ])
+
+        results = cross_validate(
+            pipeline,
+            texts,
+            labels,
+            cv=cross_validation,
+            scoring=scoring
+        )
+
+        print(f"\n{model_name}")
+
+        for metric_name in scoring:
+            scores = results[f"test_{metric_name}"]
+
+            print(
+                f"{metric_name.capitalize()}: "
+                f"{scores.mean():.2%}"
+            )
+
+
+def optimize_naive_bayes(texts, labels):
+    """
+    Tests different Alpha values for Naive Bayes
+    using the same Cross-Validation folds.
+    """
+
+    class_counts = Counter(labels)
+    min_class_count = min(class_counts.values())
+
+    if min_class_count < 2:
+        print("\nNot enough examples for optimization.")
+        return
+
+    n_splits = min(5, min_class_count)
+
+    cross_validation = StratifiedKFold(
+        n_splits=n_splits,
+        shuffle=True,
+        random_state=42
+    )
+
+    alpha_values = [
+    0.001,
+    0.005,
+    0.01,
+    0.02,
+    0.03,
+    0.04,
+    0.05
+    ]
+    scoring = {
+        "accuracy": "accuracy",
+        "precision": make_scorer(
+            precision_score,
+            average="macro",
+            zero_division=0
+        ),
+        "recall": make_scorer(
+            recall_score,
+            average="macro",
+            zero_division=0
+        ),
+        "f1": make_scorer(
+            f1_score,
+            average="macro",
+            zero_division=0
+        )
+    }
+
+    print("\n================================")
+    print("   RafiAI - Alpha Optimization")
+    print("================================")
+
+    for alpha in alpha_values:
+
+        pipeline = Pipeline([
+            ("cleaning", FunctionTransformer(clean_texts, validate=False)),
+            ("tfidf", TfidfVectorizer(
+                token_pattern=r"(?u)\b\w+\b",
+                ngram_range=(1, 2)
+            )),
+            ("classifier", MultinomialNB(alpha=alpha))
+        ])
+
+        results = cross_validate(
+            pipeline,
+            texts,
+            labels,
+            cv=cross_validation,
+            scoring=scoring
+        )
+
+        print(f"\nAlpha: {alpha}")
+
+        for metric_name in scoring:
+
+            scores = results[f"test_{metric_name}"]
+
+            print(
+                f"{metric_name.capitalize()}: "
+                f"{scores.mean():.2%}"
+            )

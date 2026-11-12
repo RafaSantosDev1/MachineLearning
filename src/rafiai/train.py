@@ -1,5 +1,5 @@
-
 from sklearn.naive_bayes import MultinomialNB
+from sklearn.linear_model import LogisticRegression
 
 
 def create_model():
@@ -7,6 +7,13 @@ def create_model():
     Creates the Naive Bayes classification model.
     """
     return MultinomialNB()
+
+
+def create_logistic_regression_model():
+    """
+    Creates the Logistic Regression classification model.
+    """
+    return LogisticRegression(max_iter=1000)
 
 
 def train_model(model, training_matrix, training_labels):

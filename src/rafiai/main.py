@@ -7,7 +7,9 @@ from rafiai.model_storage import model_exists, save_model, load_model
 from rafiai.evaluation import (
     evaluate_model,
     cross_validate_model,
-    evaluate_training_performance
+    evaluate_training_performance,
+    compare_models,
+    optimize_naive_bayes
 )
 
 
@@ -69,6 +71,12 @@ def main():
 
     # Cross-Validation
     cross_validate_model(training_texts, training_labels)
+
+    # Compare machine learning models
+    compare_models(training_texts, training_labels)
+
+    # Optimize Naive Bayes Alpha
+    optimize_naive_bayes(training_texts, training_labels)
 
     # Interactive predictions
     print("\n================================")
